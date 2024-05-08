@@ -433,16 +433,6 @@ export default class BetterNiceSelect implements DefaultType {
             if (self.tags) {
                 await allowTagsInputInteraction(this.value.trim());
             }
-            if (event.key === 'Enter' && !enterAlreadyPressed && this.value && this.value !== "") {
-                let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
-                if (liElements && liElements.length !== 1 && self.animation) {
-                    self.#triggerSearchContainerAnimationForWrongInput();
-                    console.error("To many possible <option> groups.... Please restrict further by tipping more in search input...");
-                }
-                if (liElements && liElements.length === 1) {
-                    liElements[0].click();
-                }
-            }
             if ((event.key === "Tab" && !event.shiftKey) || event.key === "ArrowDown") {
                 event.preventDefault();
                 let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
@@ -491,6 +481,16 @@ export default class BetterNiceSelect implements DefaultType {
                 }
                 if (self.animation) {
                     self.#triggerSearchContainerAnimationForOptgroupSelected();
+                }
+            }
+            if (event.key === 'Enter' && !enterAlreadyPressed && this.value && this.value !== "") {
+                let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
+                if (liElements && liElements.length !== 1 && self.animation) {
+                    self.#triggerSearchContainerAnimationForWrongInput();
+                    console.error("To many possible <option> groups.... Please restrict further by tipping more in search input...");
+                }
+                if (liElements && liElements.length === 1) {
+                    liElements[0].click();
                 }
             }
         }
