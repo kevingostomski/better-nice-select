@@ -1,0 +1,44 @@
+{
+  "name": "better-nice-select",
+  "version": "1.0.0",
+  "description": "This plugin let's you create a modern looking select field for form submits with typeahead and autocomplete function. No jQuery or other stuff needed!",
+  "main": "dist/js/better-nice-select.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rm -r ./dist && webpack --config webpack.minified.config.js && webpack --config webpack.unminified.config.js",
+    "prepublishOnly": "rm -r ./dist && webpack --config webpack.minified.config.js && webpack --config webpack.unminified.config.js",
+    "dev": "rm -r ./dist && webpack --devtool 'source-map' --config webpack.unminified.config.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kevingostomski/better-nice-select.git"
+  },
+  "keywords": [
+    "select",
+    "form",
+    "replacement",
+    "javascript",
+    "dropdown",
+    "autocomplete",
+    "typeahead",
+    "typescript"
+  ],
+  "author": "Kevin Gostomski <kevingostomski2001@gmail.com> (https://github.com/kevingostomski)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kevingostomski/better-nice-select/issues"
+  },
+  "homepage": "https://kevingostomski.github.io/better-nice-select/",
+  "devDependencies": {
+    "css-loader": "^6.10.0",
+    "css-minimizer-webpack-plugin": "^6.0.0",
+    "mini-css-extract-plugin": "^2.8.1",
+    "sass": "^1.71.1",
+    "sass-loader": "^14.1.1",
+    "terser-webpack-plugin": "^5.3.10",
+    "ts-loader": "^9.5.1",
+    "typescript": "^5.3.3",
+    "webpack": "^5.90.3",
+    "webpack-cli": "^5.1.4"
+  }
+}

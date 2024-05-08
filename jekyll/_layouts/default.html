@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="{{ page.description }}">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Select, Form, Replacement, Dropdown, typeahead, autocomplete, multi-select">
+  <meta name="google-site-verification" content="5pfzHWh5e6Qy9vVGkEfgMXQ8EphYuzhcoJGuuGjpquY" />
+  <meta name="author" content="Kevin Gostomski">
+  <title>{{ site.title }} | {{ page.title }}</title>
+  <link rel="icon" type="image/x-icon" href="{{ site.baseurl }}/assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/better-nice-select.min.css">
+  <link rel="stylesheet" href="{{ site.baseurl }}/assets/css/main.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "{{ site.title }} - {{ page.title }}",
+      "name": "{{ site.title }} - {{ page.title }}",
+      "description": "{{ page.description }}",
+      "image": [
+      "{{ site.url }}{{ site.baseurl }}/assets/images/website.png"
+      ],
+      "datePublished": "2024-05-06T11:29:00+0100",
+      "dateModified": "2024-05-06T17:00:00+0100",
+      "author": [{
+        "@type": "Person",
+        "name": "Kevin Gostomski",
+        "url": "https://github.com/kevingostomski"
+      }]
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    {% include nav.html %}
+  </header>
+  <main>
+    {{ content }}
+  </main>
+  {% include footer.html %}
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="{{ site.baseurl }}/assets/js/better-nice-select-locale-all.min.js"></script>
+  <script src="{{ site.baseurl }}/assets/js/main.js"></script>
+</body>
+
+</html>

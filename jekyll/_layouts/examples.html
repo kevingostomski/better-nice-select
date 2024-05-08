@@ -1,0 +1,79 @@
+---
+layout: "default"
+nav: "Examples"
+---
+<div class="row m-4">
+    <div class="col col-lg-2 font-size-13 border-bottom border-end mb-3">
+        <nav class="navbar navbar-expand-lg justify-content-end px-2 sticky-scroll">
+            <button class="navbar-toggler m-4" type="button" data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-controls="pages" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="pages">
+                <div class="d-flex flex-column w-100">
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-rectangle-list pe-3 text-primary"></i>Initialization</p>
+                        <a href="{{ site.baseurl }}/examples/initialization/from-html"
+                            class="nav-link p-2 {% if page.selected == 'From-HTML' %}selected{% endif %}">From HTML</a>
+                        <a href="{{ site.baseurl }}/examples/initialization/from-javascript"
+                            class="nav-link p-2 {% if page.selected == 'From-JavaScript' %}selected{% endif %}">From
+                            JavaScript</a>
+                    </div>
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-filter pe-3 text-info"></i>Options</p>
+                        <a href="{{ site.baseurl }}/examples/options/animation"
+                            class="nav-link p-2 {% if page.selected == 'Animation' %}selected{% endif %}">Animation</a>
+                        <a href="{{ site.baseurl }}/examples/options/customtagcheck"
+                            class="nav-link p-2 {% if page.selected == 'customTagCheck' %}selected{% endif %}">Constraining
+                            Tag Creation</a>
+                        <a href="{{ site.baseurl }}/examples/options/customoptiongrouplabel"
+                            class="nav-link p-2 {% if page.selected == 'customOptiongroupLabel' %}selected{% endif %}">Custom
+                            Optiongroup Labels</a>
+                        <a href="{{ site.baseurl }}/examples/options/icons"
+                            class="nav-link p-2 {% if page.selected == 'Icons' %}selected{% endif %}">Custom Icons</a>
+                        <a href="{{ site.baseurl }}/examples/options/inputdelay"
+                            class="nav-link p-2 {% if page.selected == 'inputDelay' %}selected{% endif %}">Input Delay
+                            (Debounce Search)</a>
+                        <a href="{{ site.baseurl }}/examples/options/locale"
+                            class="nav-link p-2 {% if page.selected == 'Locale' %}selected{% endif %}">Localization</a>
+                        <a href="{{ site.baseurl }}/examples/options/customsearch"
+                            class="nav-link p-2 {% if page.selected == 'customSearch' %}selected{% endif %}">Remote
+                            Data</a>
+                        <a href="{{ site.baseurl }}/examples/options/scrollable"
+                            class="nav-link p-2 {% if page.selected == 'Scrollable' %}selected{% endif %}">Scrollable</a>
+                        <a href="{{ site.baseurl }}/examples/options/tags"
+                            class="nav-link p-2 {% if page.selected == 'Tags' %}selected{% endif %}">Tags</a>
+                        <a href="{{ site.baseurl }}/examples/options/tokenseparators"
+                            class="nav-link p-2 {% if page.selected == 'TokenSeparators' %}selected{% endif %}">Token
+                            Separators</a>
+                    </div>
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-screwdriver-wrench pe-3 text-danger"></i>Events</p>
+                        <a href="{{ site.baseurl }}/examples/events/inserted"
+                            class="nav-link p-2 {% if page.selected == 'AfterInserting' %}selected{% endif %}">Inserted</a>
+                        <a href="{{ site.baseurl }}/examples/events/removed"
+                            class="nav-link p-2 {% if page.selected == 'AfterRemoving' %}selected{% endif %}">Removed</a>
+                    </div>
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-hammer pe-3 text-warning"></i>Methods</p>
+                        <a href="{{ site.baseurl }}/examples/methods/destroy"
+                            class="nav-link p-2 {% if page.selected == 'Destroy' %}selected{% endif %}">Destroy</a>
+                        <a href="{{ site.baseurl }}/examples/methods/overlay"
+                            class="nav-link p-2 {% if page.selected == 'Overlay' %}selected{% endif %}">Overlay</a>
+                        <a href="{{ site.baseurl }}/examples/methods/select"
+                            class="nav-link p-2 {% if page.selected == 'Select' %}selected{% endif %}">Select</a>
+                        <a href="{{ site.baseurl }}/examples/methods/visibility"
+                            class="nav-link p-2 {% if page.selected == 'Visibility' %}selected{% endif %}">Visibility</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col col-lg-10">
+        {{ content }}
+    </div>
+</div>

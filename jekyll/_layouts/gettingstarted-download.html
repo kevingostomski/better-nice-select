@@ -1,0 +1,46 @@
+---
+layout: "default"
+nav: "Getting-Started"
+---
+<div class="row m-4">
+    <div class="col col-lg-2 font-size-13 border-bottom border-end mb-3">
+        <nav class="navbar navbar-expand-lg justify-content-end px-2 sticky-scroll">
+            <button class="navbar-toggler m-4" type="button" data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-controls="pages" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="pages">
+                <div class="navbar-nav flex-column w-100">
+                    <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                            class="fa-solid fa-book-open pe-3"></i>Getting started</p>
+                    <a href="{{ site.baseurl }}/getting-started/introduction" class="nav-link p-2">Introduction</a>
+                    <a href="{{ site.baseurl }}/getting-started/download" class="nav-link p-2 selected">Download</a>
+                    <a href="{{ site.baseurl }}/getting-started/usage" class="nav-link p-2">Usage</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col-lg-10 col-xxl-8">
+        <div data-bs-spy="scroll" data-bs-target="navbar-scrollspy" data-bs-smooth-scroll="true" data-offset="0"
+            tabindex="0">
+            {{ content }}
+        </div>
+    </div>
+    <div class="d-none d-xxl-block col-xxl-2 font-size-13 font-size-13">
+        <div class="sticky-scroll">
+            <nav id="navbar-scrollspy" class="border-start">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#latest-release">Latest Release</a>
+                    <a class="nav-link" href="#source-code">Source Code</a>
+                    <a class="nav-link" href="#clone-or-fork-via-github">Clone or fork via GitHub</a>
+                    <a class="nav-link" href="#unpkg">UNPKG</a>
+                    <a class="nav-link" href="#package-managers">Package Managers</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ms-3 my-1" href="#npm">NPM</a>
+                        <a class="nav-link ms-3 my-1" href="#yarn">Yarn</a>
+                    </nav>
+                </nav>
+            </nav>
+        </div>
+    </div>
+</div>

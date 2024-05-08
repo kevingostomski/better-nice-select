@@ -1,0 +1,5 @@
+$custom-colors: (
+  "darker": rgb(14, 17, 22)
+);
+
+$theme-colors: map-merge($theme-colors, $custom-colors);

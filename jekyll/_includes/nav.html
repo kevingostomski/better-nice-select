@@ -1,0 +1,29 @@
+<nav class="navbar navbar-expand-lg bg-darker fixed-top navbar-header flex-column flex-lg-row">
+    <a class="navbar-brand ms-4" href="https://kevingostomski.github.io/better-nice-select/">
+        {{ site.title }}
+    </a>
+    <div class="overflow-hidden mw-100">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item {% if layout.nav == 'Getting-Started' %}selected{% endif %}">
+                <a class="nav-link" href="{{ site.baseurl }}/getting-started/introduction">Getting Started</a>
+            </li>
+            <li class="nav-item {% if layout.nav == 'Documentation' %}selected{% endif %}">
+                <a class="nav-link" href="{{ site.baseurl }}/documentation/options">Documentation</a>
+            </li>
+            <li class="nav-item {% if layout.nav == 'Examples' %}selected{% endif %}">
+                <a class="nav-link" href="{{ site.baseurl }}/examples/initialization/from-html">Examples</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/kevingostomski/better-nice-select/blob/main/CHANGELOG.md">Blog</a>
+            </li>
+        </ul>
+    </div>
+    <div class="d-none d-lg-flex ms-auto align-items-center pe-5 me-4">
+        <a class="ms-3 me-2 text-white fs-5" href="https://github.com/kevingostomski/better-nice-select"><i
+                class="fa-brands fa-github"></i></a>
+        <a class="ms-2 me-3 text-white fs-5" href="https://www.npmjs.com/package/better-nice-select"><i
+                class="fa-brands fa-npm"></i></a>
+        <a class="btn btn-outline-warning mx-3" role="button"
+            href="{{ site.baseurl }}/getting-started/download">Download</a>
+    </div>
+</nav>
