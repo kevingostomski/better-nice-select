@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Getting Started webpage for how to use Better-Nice-Select">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Select, Form, Replacement, Dropdown, typeahead, autocomplete, multi-select">
+  <meta name="google-site-verification" content="5pfzHWh5e6Qy9vVGkEfgMXQ8EphYuzhcoJGuuGjpquY" />
+  <meta name="author" content="Kevin Gostomski">
+  <title>Better-Nice-Select | Getting Started [Usage]</title>
+  <link rel="icon" type="image/x-icon" href="/better-nice-select/assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/better-nice-select.min.css">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/main.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Better-Nice-Select - Getting Started [Usage]",
+      "name": "Better-Nice-Select - Getting Started [Usage]",
+      "description": "Getting Started webpage for how to use Better-Nice-Select",
+      "image": [
+      "https://kevingostomski.github.io/better-nice-select/assets/images/website.png"
+      ],
+      "datePublished": "2024-05-06T11:29:00+0100",
+      "dateModified": "2024-05-06T17:00:00+0100",
+      "author": [{
+        "@type": "Person",
+        "name": "Kevin Gostomski",
+        "url": "https://github.com/kevingostomski"
+      }]
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-darker fixed-top navbar-header flex-column flex-lg-row">
+    <a class="navbar-brand ms-4" href="https://kevingostomski.github.io/better-nice-select/">
+        Better-Nice-Select
+    </a>
+    <div class="overflow-hidden mw-100">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item selected">
+                <a class="nav-link" href="/better-nice-select/getting-started/introduction">Getting Started</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/documentation/options">Documentation</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/examples/initialization/from-html">Examples</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/kevingostomski/better-nice-select/blob/main/CHANGELOG.md">Blog</a>
+            </li>
+        </ul>
+    </div>
+    <div class="d-none d-lg-flex ms-auto align-items-center pe-5 me-4">
+        <a class="ms-3 me-2 text-white fs-5" href="https://github.com/kevingostomski/better-nice-select"><i
+                class="fa-brands fa-github"></i></a>
+        <a class="ms-2 me-3 text-white fs-5" href="https://www.npmjs.com/package/better-nice-select"><i
+                class="fa-brands fa-npm"></i></a>
+        <a class="btn btn-outline-warning mx-3" role="button"
+            href="/better-nice-select/getting-started/download">Download</a>
+    </div>
+</nav>
+  </header>
+  <main>
+    <div class="row m-4">
+    <div class="col col-lg-2 font-size-13 border-bottom border-end mb-3">
+        <nav class="navbar navbar-expand-lg justify-content-end px-2 sticky-scroll">
+            <button class="navbar-toggler m-4" type="button" data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-controls="pages" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="pages">
+                <div class="navbar-nav flex-column w-100">
+                    <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                            class="fa-solid fa-book-open pe-3"></i>Getting started</p>
+                    <a href="/better-nice-select/getting-started/introduction" class="nav-link p-2">Introduction</a>
+                    <a href="/better-nice-select/getting-started/download" class="nav-link p-2">Download</a>
+                    <a href="/better-nice-select/getting-started/usage" class="nav-link p-2 selected">Usage</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col-lg-10 col-xxl-8">
+        <div data-bs-spy="scroll" data-bs-target="navbar-scrollspy" data-bs-smooth-scroll="true" data-offset="10"
+            tabindex="0">
+            <h1 id="usage">Usage</h1>
+
+<h4 id="the-better-nice-select-plugin-displays-data-in-a-modern-format-via-data-attributes-or-javascript">The Better-Nice-Select plugin displays data in a modern format, via data attributes or JavaScript.</h4>
+
+<hr />
+
+<p> </p>
+
+<h2 id="options"><strong>Options</strong></h2>
+
+<p>As options can be passed via data attributes or JavaScript, you can append an option name to <code class="language-plaintext highlighter-rouge">data-</code>, as in <code class="language-plaintext highlighter-rouge">data-animation="{value}"</code>. Make sure to change the case type of the option name from “camelCase” to “kebab-case” when passing the options via data attributes. For example, use <code class="language-plaintext highlighter-rouge">data-custom-search="searcher"</code> instead of <code class="language-plaintext highlighter-rouge">data-customSearch="searcher"</code>.</p>
+
+<p> </p>
+
+<h2 id="via-data-attributes"><strong>Via data attributes</strong></h2>
+
+<div class="mb-3">
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;select</span> <span class="na">data-toggle=</span><span class="s">"better-nice-select"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Banana"</span><span class="nt">&gt;</span>Banana<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Apple"</span><span class="nt">&gt;</span>Apple<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Orange"</span><span class="nt">&gt;</span>Orange<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Lemon"</span><span class="nt">&gt;</span>Lemon<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Pepper"</span><span class="nt">&gt;</span>Pepper<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Mushrooms"</span><span class="nt">&gt;</span>Mushrooms<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Cabbages"</span><span class="nt">&gt;</span>Cabbages<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Celery"</span><span class="nt">&gt;</span>Celery<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Garlic"</span><span class="nt">&gt;</span>Garlic<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Brocoli"</span><span class="nt">&gt;</span>Brocoli<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span></code></pre></figure>
+
+<hr />
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">elements</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">querySelectorAll</span><span class="p">(</span><span class="dl">'</span><span class="s1">[data-toggle="better-nice-select"]</span><span class="dl">'</span><span class="p">);</span>
+<span class="nx">elements</span><span class="p">.</span><span class="nf">forEach</span><span class="p">(</span><span class="nx">element</span> <span class="o">=&gt;</span> <span class="k">new</span> <span class="nx">betterNiceSelect</span><span class="p">.</span><span class="nc">BetterNiceSelect</span><span class="p">(</span><span class="nx">element</span><span class="p">));</span></code></pre></figure>
+
+</div>
+
+<p>For pre-selecting options you can use <code class="language-plaintext highlighter-rouge">selected="selected"</code> or for multiple select, you can use <code class="language-plaintext highlighter-rouge">multiple="multiple"</code> or just <code class="language-plaintext highlighter-rouge">multiple</code>.</p>
+
+<div class="mb-3">
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;select</span> <span class="na">data-toggle=</span><span class="s">"better-nice-select"</span> <span class="na">multiple</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Banana"</span><span class="nt">&gt;</span>Banana<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Apple"</span><span class="nt">&gt;</span>Apple<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Orange"</span><span class="nt">&gt;</span>Orange<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Lemon"</span> <span class="na">selected=</span><span class="s">"selected"</span><span class="nt">&gt;</span>Lemon<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Pepper"</span><span class="nt">&gt;</span>Pepper<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Mushrooms"</span><span class="nt">&gt;</span>Mushrooms<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Cabbages"</span><span class="nt">&gt;</span>Cabbages<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Celery"</span><span class="nt">&gt;</span>Celery<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Garlic"</span><span class="nt">&gt;</span>Garlic<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Brocoli"</span><span class="nt">&gt;</span>Brocoli<span class="nt">&lt;/option&gt;</span>
+<span class="nt">&lt;/select&gt;</span></code></pre></figure>
+
+</div>
+
+<p>You can even use <code class="language-plaintext highlighter-rouge">&lt;optgroup&gt;</code> tags to render options in a group and search for group texts in the items search overlay field.</p>
+
+<div class="mb-3">
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;select</span> <span class="na">data-toggle=</span><span class="s">"better-nice-select"</span> <span class="na">multiple=</span><span class="s">"multiple"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;optgroup</span> <span class="na">label=</span><span class="s">"Fruit"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Banana"</span> <span class="na">selected=</span><span class="s">"selected"</span><span class="nt">&gt;</span>Banana<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Apple"</span><span class="nt">&gt;</span>Apple<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Orange"</span><span class="nt">&gt;</span>Orange<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Lemon"</span><span class="nt">&gt;</span>Lemon<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/optgroup&gt;</span>
+    <span class="nt">&lt;optgroup</span> <span class="na">label=</span><span class="s">"Vegetable"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Pepper"</span><span class="nt">&gt;</span>Pepper<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Mushrooms"</span><span class="nt">&gt;</span>Mushrooms<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Cabbages"</span> <span class="na">selected=</span><span class="s">"selected"</span><span class="nt">&gt;</span>Cabbages<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Celery"</span><span class="nt">&gt;</span>Celery<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Garlic"</span><span class="nt">&gt;</span>Garlic<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Brocoli"</span><span class="nt">&gt;</span>Brocoli<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/optgroup&gt;</span>
+<span class="nt">&lt;/select&gt;</span></code></pre></figure>
+
+</div>
+
+<p>The <code class="language-plaintext highlighter-rouge">&lt;select&gt;</code> data is now supported for remote URL data through the initialization with a data attribute or via JavaScript.</p>
+
+<p> </p>
+
+<h2 id="via-javascript"><strong>Via JavaScript</strong></h2>
+
+<p>Call a better-nice-select field with an <code class="language-plaintext highlighter-rouge">id</code> or <code class="language-plaintext highlighter-rouge">class</code>.</p>
+
+<div class="mb-3">
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;select</span> <span class="na">id=</span><span class="s">"my-select"</span><span class="nt">&gt;&lt;/select&gt;</span></code></pre></figure>
+
+</div>
+
+<div class="mb-3">
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">select</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">betterNiceSelect</span><span class="p">.</span><span class="nc">BetterNiceSelect</span><span class="p">(</span><span class="dl">"</span><span class="s2">#my-select</span><span class="dl">"</span><span class="p">);</span></code></pre></figure>
+
+</div>
+
+<p>For setting available options, create a javascript object and append it to the initialization. You can set something like the <code class="language-plaintext highlighter-rouge">locale</code> option, the <code class="language-plaintext highlighter-rouge">scrollable</code> feature or many more.</p>
+
+<div class="mb-3">
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">select</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">betterNiceSelect</span><span class="p">.</span><span class="nc">BetterNiceSelect</span><span class="p">(</span><span class="dl">"</span><span class="s2">#my-select</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">locale</span><span class="p">:</span> <span class="dl">"</span><span class="s2">de</span><span class="dl">"</span><span class="p">,</span>
+    <span class="na">tags</span><span class="p">:</span> <span class="kc">true</span><span class="p">,</span>
+    <span class="p">...</span>
+<span class="p">});</span></code></pre></figure>
+
+</div>
+
+<p>For using remote URL data, give the option <code class="language-plaintext highlighter-rouge">customSearch</code> the function name you created or a callback function and return the data in JSON format. When using remote URL data, predefined options
+which are not already <code class="language-plaintext highlighter-rouge">selected="selected"</code> are ignored but the select field need to be HTML conform, if your JSON data is using <code class="language-plaintext highlighter-rouge">&lt;optgroup&gt;</code> tags or other available data options.</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">dbData</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">items</span><span class="p">:</span> <span class="p">[</span>
+        <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Banana</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Banana</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Fruit</span><span class="dl">"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Apple</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Apple</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Fruit</span><span class="dl">"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Pepper</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Pepper</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Vegetable</span><span class="dl">"</span>
+        <span class="p">},</span>
+        <span class="p">{</span>
+        <span class="na">id</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Garlic</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">text</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Garlic</span><span class="dl">"</span><span class="p">,</span>
+        <span class="na">label</span><span class="p">:</span> <span class="dl">"</span><span class="s2">Vegetable</span><span class="dl">"</span>
+        <span class="p">}</span>
+    <span class="p">]</span>
+<span class="p">}</span>
+
+<span class="kd">function</span> <span class="nf">callRemoteData</span><span class="p">(</span><span class="nx">filter</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nx">filter</span> <span class="o">=</span> <span class="nx">filter</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">();</span>
+    <span class="c1">// put AJAX or Fetch for Remote JSON object here and use the filter string to only return items searched</span>
+    <span class="kd">let</span> <span class="nx">toRet</span> <span class="o">=</span> <span class="nf">structuredClone</span><span class="p">(</span><span class="nx">dbData</span><span class="p">);</span>
+    <span class="nx">toRet</span><span class="p">.</span><span class="nx">items</span> <span class="o">=</span> <span class="nx">toRet</span><span class="p">.</span><span class="nx">items</span><span class="p">.</span><span class="nf">filter</span><span class="p">(</span><span class="nx">data</span> <span class="o">=&gt;</span> <span class="nx">data</span><span class="p">.</span><span class="nx">text</span><span class="p">.</span><span class="nf">toLowerCase</span><span class="p">().</span><span class="nf">indexOf</span><span class="p">(</span><span class="nx">filter</span><span class="p">)</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1</span><span class="p">);</span>
+    <span class="k">return</span> <span class="nx">toRet</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="kd">let</span> <span class="nx">select</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">betterNiceSelect</span><span class="p">.</span><span class="nc">BetterNiceSelect</span><span class="p">(</span><span class="dl">"</span><span class="s2">#my-select</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">customSearch</span><span class="p">:</span> <span class="dl">'</span><span class="s1">callRemoteData</span><span class="dl">'</span>
+<span class="p">});</span></code></pre></figure>
+
+        </div>
+    </div>
+    <div class="d-none d-xxl-block col-xxl-2 font-size-13 font-size-13">
+        <div class="sticky-scroll">
+            <nav id="navbar-scrollspy" class="border-start">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#options">Options</a>
+                    <a class="nav-link" href="#via-data-attributes">Via data attributes</a>
+                    <a class="nav-link" href="#via-javascript">Via JavaScript</a>
+                </nav>
+            </nav>
+        </div>
+    </div>
+</div>
+  </main>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-4 border-top">
+    <div class="d-flex align-items-center px-5 font-size-13">
+        <div>
+            <div class="mb-3">
+                <ul class="nav list-unstyled d-flex font-size-13">
+                    <li><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="https://github.com/kevingostomski/better-nice-select">Github</a>
+                    </li>
+                    <li class="ms-3"><a
+                            class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="mailto:kevingostomski2001@gmail.com">E-Mail</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p class="mb-1">
+                    © 2024 Better-Nice-Select Website. This website is developed and maintained by
+                    <a href="https://github.com/kevingostomski"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">@kevingostomski</a>
+                </p>
+                <p>
+                    Currently v1.0.0, Code licensed <a
+                        href="https://github.com/kevingostomski/bootstrap-nice-select/blob/main/LICENSE"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">MIT</a>, docs <a
+                        href="https://creativecommons.org/licenses/by/3.0/"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">CC BY 3.0</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="/better-nice-select/assets/js/better-nice-select-locale-all.min.js"></script>
+  <script src="/better-nice-select/assets/js/main.js"></script>
+</body>
+
+</html>

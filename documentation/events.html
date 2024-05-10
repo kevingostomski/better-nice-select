@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Documentation for Events API of Better-Nice-Select - Gives an overview how to implement events for the component, which events are available and what parameters each event has">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Select, Form, Replacement, Dropdown, typeahead, autocomplete, multi-select">
+  <meta name="google-site-verification" content="5pfzHWh5e6Qy9vVGkEfgMXQ8EphYuzhcoJGuuGjpquY" />
+  <meta name="author" content="Kevin Gostomski">
+  <title>Better-Nice-Select | Documentation [Events]</title>
+  <link rel="icon" type="image/x-icon" href="/better-nice-select/assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/better-nice-select.min.css">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/main.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Better-Nice-Select - Documentation [Events]",
+      "name": "Better-Nice-Select - Documentation [Events]",
+      "description": "Documentation for Events API of Better-Nice-Select - Gives an overview how to implement events for the component, which events are available and what parameters each event has",
+      "image": [
+      "https://kevingostomski.github.io/better-nice-select/assets/images/website.png"
+      ],
+      "datePublished": "2024-05-06T11:29:00+0100",
+      "dateModified": "2024-05-06T17:00:00+0100",
+      "author": [{
+        "@type": "Person",
+        "name": "Kevin Gostomski",
+        "url": "https://github.com/kevingostomski"
+      }]
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-darker fixed-top navbar-header flex-column flex-lg-row">
+    <a class="navbar-brand ms-4" href="https://kevingostomski.github.io/better-nice-select/">
+        Better-Nice-Select
+    </a>
+    <div class="overflow-hidden mw-100">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/getting-started/introduction">Getting Started</a>
+            </li>
+            <li class="nav-item selected">
+                <a class="nav-link" href="/better-nice-select/documentation/options">Documentation</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/examples/initialization/from-html">Examples</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/kevingostomski/better-nice-select/blob/main/CHANGELOG.md">Blog</a>
+            </li>
+        </ul>
+    </div>
+    <div class="d-none d-lg-flex ms-auto align-items-center pe-5 me-4">
+        <a class="ms-3 me-2 text-white fs-5" href="https://github.com/kevingostomski/better-nice-select"><i
+                class="fa-brands fa-github"></i></a>
+        <a class="ms-2 me-3 text-white fs-5" href="https://www.npmjs.com/package/better-nice-select"><i
+                class="fa-brands fa-npm"></i></a>
+        <a class="btn btn-outline-warning mx-3" role="button"
+            href="/better-nice-select/getting-started/download">Download</a>
+    </div>
+</nav>
+  </header>
+  <main>
+    <div class="row m-4">
+    <div class="col col-lg-2 font-size-13 border-bottom border-end mb-3">
+        <nav class="navbar navbar-expand-lg justify-content-end px-2 sticky-scroll">
+            <button class="navbar-toggler m-4" type="button" data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-controls="pages" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="pages">
+                <div class="navbar-nav flex-column w-100">
+                    <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                            class="fa-solid fa-book pe-3 text-warning"></i>API</p>
+                    <a href="/better-nice-select/documentation/options" class="nav-link p-2">Options</a>
+                    <a href="/better-nice-select/documentation/events" class="nav-link p-2 selected">Events</a>
+                    <a href="/better-nice-select/documentation/methods" class="nav-link p-2">Methods</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col-lg-10 col-xxl-8">
+        <div data-bs-spy="scroll" data-bs-target="navbar-scrollspy" data-bs-smooth-scroll="true" data-offset="5"
+            tabindex="0">
+            <h1 id="select-events">Select Events</h1>
+
+<h4 id="the-select-events-api-of-better-nice-select">The Select Events API of Better-Nice-Select</h4>
+
+<hr />
+
+<p> </p>
+
+<p>Events can currently be bound only in one way:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">select</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nf">queryselector</span><span class="p">(</span><span class="dl">"</span><span class="s2">#my-selector</span><span class="dl">"</span><span class="p">);</span>
+<span class="kd">let</span> <span class="nx">componentInit</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">betterNiceSelect</span><span class="p">.</span><span class="nc">BetterNiceSelect</span><span class="p">(</span><span class="dl">'</span><span class="s1">#my-selector</span><span class="dl">'</span><span class="p">);</span>
+
+<span class="nx">select</span><span class="p">.</span><span class="nf">addEventListener</span><span class="p">(</span><span class="dl">"</span><span class="s2">event-name.better-nice-select</span><span class="dl">"</span><span class="p">,</span> <span class="kd">function</span><span class="p">(</span><span class="nx">e</span><span class="p">,</span> <span class="nx">arg1</span><span class="p">,</span><span class="nx">arg2</span><span class="p">,</span> <span class="p">...){</span>
+    <span class="c1">// do something...</span>
+<span class="p">});</span></code></pre></figure>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="inserted"><strong>Inserted</strong></h2>
+
+<ul>
+  <li><strong>Event:</strong> <code class="language-plaintext highlighter-rouge">inserted.better-nice-select</code></li>
+  <li><strong>Parameter:</strong></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e.detail.key</code></td>
+      <td>The key or rather the setted <code class="language-plaintext highlighter-rouge">value</code> for the <code class="language-plaintext highlighter-rouge">&lt;option&gt;</code> element which is added.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e.detail.value</code></td>
+      <td>The value or rather the setted <code class="language-plaintext highlighter-rouge">innerText</code> for the <code class="language-plaintext highlighter-rouge">&lt;option&gt;</code> element which is added.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p> </p>
+
+<ul>
+  <li><strong>Detail:</strong>
+The event is fired immediately after a new option will be added to the <code class="language-plaintext highlighter-rouge">&lt;select&gt;</code> field.</li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/events/inserted">Inserted</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="removed"><strong>Removed</strong></h2>
+
+<ul>
+  <li><strong>Event:</strong> <code class="language-plaintext highlighter-rouge">removed.better-nice-select</code></li>
+  <li><strong>Parameter:</strong></li>
+</ul>
+
+<table>
+  <thead>
+    <tr>
+      <th>Key</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e.detail.key</code></td>
+      <td>The key or rather the setted <code class="language-plaintext highlighter-rouge">value</code> for the <code class="language-plaintext highlighter-rouge">&lt;option&gt;</code> element which is removed.</td>
+    </tr>
+    <tr>
+      <td><code class="language-plaintext highlighter-rouge">e.detail.value</code></td>
+      <td>The value or rather the setted <code class="language-plaintext highlighter-rouge">innerText</code> for the <code class="language-plaintext highlighter-rouge">&lt;option&gt;</code> element which is removed.</td>
+    </tr>
+  </tbody>
+</table>
+
+<p> </p>
+
+<ul>
+  <li><strong>Detail:</strong>
+The event is fired immediately after an option will be removed from the <code class="language-plaintext highlighter-rouge">&lt;select&gt;</code> field.</li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/events/removed">Removed</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="d-none d-xxl-block col-xxl-2 font-size-13 font-size-13">
+        <div class="sticky-scroll">
+            <nav id="navbar-scrollspy" class="border-start">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#inserted">Inserted</a>
+                    <a class="nav-link" href="#removed">Removed</a>
+                </nav>
+            </nav>
+        </div>
+    </div>
+</div>
+  </main>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-4 border-top">
+    <div class="d-flex align-items-center px-5 font-size-13">
+        <div>
+            <div class="mb-3">
+                <ul class="nav list-unstyled d-flex font-size-13">
+                    <li><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="https://github.com/kevingostomski/better-nice-select">Github</a>
+                    </li>
+                    <li class="ms-3"><a
+                            class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="mailto:kevingostomski2001@gmail.com">E-Mail</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p class="mb-1">
+                    © 2024 Better-Nice-Select Website. This website is developed and maintained by
+                    <a href="https://github.com/kevingostomski"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">@kevingostomski</a>
+                </p>
+                <p>
+                    Currently v1.0.0, Code licensed <a
+                        href="https://github.com/kevingostomski/bootstrap-nice-select/blob/main/LICENSE"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">MIT</a>, docs <a
+                        href="https://creativecommons.org/licenses/by/3.0/"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">CC BY 3.0</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="/better-nice-select/assets/js/better-nice-select-locale-all.min.js"></script>
+  <script src="/better-nice-select/assets/js/main.js"></script>
+</body>
+
+</html>

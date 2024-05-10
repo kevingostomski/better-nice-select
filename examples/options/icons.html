@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Example how to set the 'icons' option of Better-Nice-Select - Gives an overview how to implement the option and how it looks like">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Select, Form, Replacement, Dropdown, typeahead, autocomplete, multi-select">
+  <meta name="google-site-verification" content="5pfzHWh5e6Qy9vVGkEfgMXQ8EphYuzhcoJGuuGjpquY" />
+  <meta name="author" content="Kevin Gostomski">
+  <title>Better-Nice-Select | Examples [Options - Icons]</title>
+  <link rel="icon" type="image/x-icon" href="/better-nice-select/assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/better-nice-select.min.css">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/main.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Better-Nice-Select - Examples [Options - Icons]",
+      "name": "Better-Nice-Select - Examples [Options - Icons]",
+      "description": "Example how to set the 'icons' option of Better-Nice-Select - Gives an overview how to implement the option and how it looks like",
+      "image": [
+      "https://kevingostomski.github.io/better-nice-select/assets/images/website.png"
+      ],
+      "datePublished": "2024-05-06T11:29:00+0100",
+      "dateModified": "2024-05-06T17:00:00+0100",
+      "author": [{
+        "@type": "Person",
+        "name": "Kevin Gostomski",
+        "url": "https://github.com/kevingostomski"
+      }]
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-darker fixed-top navbar-header flex-column flex-lg-row">
+    <a class="navbar-brand ms-4" href="https://kevingostomski.github.io/better-nice-select/">
+        Better-Nice-Select
+    </a>
+    <div class="overflow-hidden mw-100">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/getting-started/introduction">Getting Started</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/documentation/options">Documentation</a>
+            </li>
+            <li class="nav-item selected">
+                <a class="nav-link" href="/better-nice-select/examples/initialization/from-html">Examples</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/kevingostomski/better-nice-select/blob/main/CHANGELOG.md">Blog</a>
+            </li>
+        </ul>
+    </div>
+    <div class="d-none d-lg-flex ms-auto align-items-center pe-5 me-4">
+        <a class="ms-3 me-2 text-white fs-5" href="https://github.com/kevingostomski/better-nice-select"><i
+                class="fa-brands fa-github"></i></a>
+        <a class="ms-2 me-3 text-white fs-5" href="https://www.npmjs.com/package/better-nice-select"><i
+                class="fa-brands fa-npm"></i></a>
+        <a class="btn btn-outline-warning mx-3" role="button"
+            href="/better-nice-select/getting-started/download">Download</a>
+    </div>
+</nav>
+  </header>
+  <main>
+    <div class="row m-4">
+    <div class="col col-lg-2 font-size-13 border-bottom border-end mb-3">
+        <nav class="navbar navbar-expand-lg justify-content-end px-2 sticky-scroll">
+            <button class="navbar-toggler m-4" type="button" data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-controls="pages" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="pages">
+                <div class="d-flex flex-column w-100">
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-rectangle-list pe-3 text-primary"></i>Initialization</p>
+                        <a href="/better-nice-select/examples/initialization/from-html"
+                            class="nav-link p-2 ">From HTML</a>
+                        <a href="/better-nice-select/examples/initialization/from-javascript"
+                            class="nav-link p-2 ">From
+                            JavaScript</a>
+                    </div>
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-filter pe-3 text-info"></i>Options</p>
+                        <a href="/better-nice-select/examples/options/animation"
+                            class="nav-link p-2 ">Animation</a>
+                        <a href="/better-nice-select/examples/options/customtagcheck"
+                            class="nav-link p-2 ">Constraining
+                            Tag Creation</a>
+                        <a href="/better-nice-select/examples/options/customoptiongrouplabel"
+                            class="nav-link p-2 ">Custom
+                            Optiongroup Labels</a>
+                        <a href="/better-nice-select/examples/options/icons"
+                            class="nav-link p-2 selected">Custom Icons</a>
+                        <a href="/better-nice-select/examples/options/inputdelay"
+                            class="nav-link p-2 ">Input Delay
+                            (Debounce Search)</a>
+                        <a href="/better-nice-select/examples/options/locale"
+                            class="nav-link p-2 ">Localization</a>
+                        <a href="/better-nice-select/examples/options/customsearch"
+                            class="nav-link p-2 ">Remote
+                            Data</a>
+                        <a href="/better-nice-select/examples/options/scrollable"
+                            class="nav-link p-2 ">Scrollable</a>
+                        <a href="/better-nice-select/examples/options/tags"
+                            class="nav-link p-2 ">Tags</a>
+                        <a href="/better-nice-select/examples/options/tokenseparators"
+                            class="nav-link p-2 ">Token
+                            Separators</a>
+                    </div>
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-screwdriver-wrench pe-3 text-danger"></i>Events</p>
+                        <a href="/better-nice-select/examples/events/inserted"
+                            class="nav-link p-2 ">Inserted</a>
+                        <a href="/better-nice-select/examples/events/removed"
+                            class="nav-link p-2 ">Removed</a>
+                    </div>
+                    <div class="navbar-nav flex-column w-100 mb-5">
+                        <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                                class="fa-solid fa-hammer pe-3 text-warning"></i>Methods</p>
+                        <a href="/better-nice-select/examples/methods/destroy"
+                            class="nav-link p-2 ">Destroy</a>
+                        <a href="/better-nice-select/examples/methods/overlay"
+                            class="nav-link p-2 ">Overlay</a>
+                        <a href="/better-nice-select/examples/methods/select"
+                            class="nav-link p-2 ">Select</a>
+                        <a href="/better-nice-select/examples/methods/visibility"
+                            class="nav-link p-2 ">Visibility</a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col col-lg-10">
+        <h1 id="custom-icons"><strong>Custom Icons</strong></h1>
+
+<hr />
+
+<p>Use the <code class="language-plaintext highlighter-rouge">icons</code> option to set own custom icons via Javascript or HTML for the placeholder icons. The icons need to be in HTML markup language or already as HTMLElement</p>
+
+<div class="alert alert-light d-flex justify-content-start align-items-center font-size-13" role="alert">
+        <i class="fa-solid fa-circle-info pe-2"></i>Possible options to search for are: <i class="ms-2">Banana, Apple, Orange, Lemon, Pepper, Mushrooms, Cabbages, Celery, Brocoli, Garlic</i>
+</div>
+
+<div class="container my-4 border rounded p-0">
+    <div class="p-5 border-bottom">
+        <select multiple="multiple" id="option-icons" hidden="hidden">
+            <option value="Banana">Banana</option>
+            <option value="Apple">Apple</option>
+            <option value="Orange">Orange</option>
+            <option value="Lemon" selected="selected">Lemon</option>
+            <option value="Pepper">Pepper</option>
+            <option value="Mushrooms">Mushrooms</option>
+            <option value="Cabbages">Cabbages</option>
+            <option value="Celery">Celery</option>
+            <option value="Garlic">Garlic</option>
+            <option value="Brocoli">Brocoli</option>
+        </select>
+    </div>
+    <div class="bg-highlight rounded">
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"container"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;select</span> <span class="na">multiple=</span><span class="s">"multiple"</span> <span class="na">id=</span><span class="s">"custom-icons"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Banana"</span><span class="nt">&gt;</span>Banana<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Apple"</span><span class="nt">&gt;</span>Apple<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Orange"</span><span class="nt">&gt;</span>Orange<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Lemon"</span> <span class="na">selected=</span><span class="s">"selected"</span><span class="nt">&gt;</span>Lemon<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Pepper"</span><span class="nt">&gt;</span>Pepper<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Mushrooms"</span><span class="nt">&gt;</span>Mushrooms<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Cabbages"</span><span class="nt">&gt;</span>Cabbages<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Celery"</span><span class="nt">&gt;</span>Celery<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Garlic"</span><span class="nt">&gt;</span>Garlic<span class="nt">&lt;/option&gt;</span>
+        <span class="nt">&lt;option</span> <span class="na">value=</span><span class="s">"Brocoli"</span><span class="nt">&gt;</span>Brocoli<span class="nt">&lt;/option&gt;</span>
+    <span class="nt">&lt;/select&gt;</span>
+<span class="nt">&lt;/div&gt;</span></code></pre></figure>
+
+<hr />
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="kd">let</span> <span class="nx">select</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">betterNiceSelect</span><span class="p">.</span><span class="nc">BetterNiceSelect</span><span class="p">(</span><span class="dl">"</span><span class="s2">#custom-icons</span><span class="dl">"</span><span class="p">,</span> <span class="p">{</span>
+    <span class="na">icons</span><span class="p">:</span> <span class="p">{</span>
+        <span class="na">add</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;i class="material-icons"&gt;add&lt;/i&gt;</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">search</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;i class="fa-solid fa-magnifying-glass"&gt;&lt;/i&gt;</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">tag</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;i class="fa-solid fa-circle-exclamation"&gt;&lt;/i&gt;</span><span class="dl">'</span><span class="p">,</span>
+        <span class="na">delete</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;i class="bi bi-trash"&gt;&lt;/i&gt;</span><span class="dl">'</span>
+    <span class="p">}</span>
+<span class="p">});</span></code></pre></figure>
+
+    </div>
+</div>
+
+    </div>
+</div>
+  </main>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-4 border-top">
+    <div class="d-flex align-items-center px-5 font-size-13">
+        <div>
+            <div class="mb-3">
+                <ul class="nav list-unstyled d-flex font-size-13">
+                    <li><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="https://github.com/kevingostomski/better-nice-select">Github</a>
+                    </li>
+                    <li class="ms-3"><a
+                            class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="mailto:kevingostomski2001@gmail.com">E-Mail</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p class="mb-1">
+                    © 2024 Better-Nice-Select Website. This website is developed and maintained by
+                    <a href="https://github.com/kevingostomski"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">@kevingostomski</a>
+                </p>
+                <p>
+                    Currently v1.0.0, Code licensed <a
+                        href="https://github.com/kevingostomski/bootstrap-nice-select/blob/main/LICENSE"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">MIT</a>, docs <a
+                        href="https://creativecommons.org/licenses/by/3.0/"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">CC BY 3.0</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="/better-nice-select/assets/js/better-nice-select-locale-all.min.js"></script>
+  <script src="/better-nice-select/assets/js/main.js"></script>
+</body>
+
+</html>

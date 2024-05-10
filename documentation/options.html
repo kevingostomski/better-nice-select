@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="en" data-bs-theme="dark">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Documentation for Options API of Better-Nice-Select - Gives an overview how to implement each option for the component and which options are available">
+  <meta name="keywords" content="HTML, CSS, JavaScript, Select, Form, Replacement, Dropdown, typeahead, autocomplete, multi-select">
+  <meta name="google-site-verification" content="5pfzHWh5e6Qy9vVGkEfgMXQ8EphYuzhcoJGuuGjpquY" />
+  <meta name="author" content="Kevin Gostomski">
+  <title>Better-Nice-Select | Documentation [Options]</title>
+  <link rel="icon" type="image/x-icon" href="/better-nice-select/assets/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.4/font/bootstrap-icons.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Slab&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/better-nice-select.min.css">
+  <link rel="stylesheet" href="/better-nice-select/assets/css/main.css">
+  <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "BlogPosting",
+      "headline": "Better-Nice-Select - Documentation [Options]",
+      "name": "Better-Nice-Select - Documentation [Options]",
+      "description": "Documentation for Options API of Better-Nice-Select - Gives an overview how to implement each option for the component and which options are available",
+      "image": [
+      "https://kevingostomski.github.io/better-nice-select/assets/images/website.png"
+      ],
+      "datePublished": "2024-05-06T11:29:00+0100",
+      "dateModified": "2024-05-06T17:00:00+0100",
+      "author": [{
+        "@type": "Person",
+        "name": "Kevin Gostomski",
+        "url": "https://github.com/kevingostomski"
+      }]
+    }
+  </script>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar navbar-expand-lg bg-darker fixed-top navbar-header flex-column flex-lg-row">
+    <a class="navbar-brand ms-4" href="https://kevingostomski.github.io/better-nice-select/">
+        Better-Nice-Select
+    </a>
+    <div class="overflow-hidden mw-100">
+        <ul class="navbar-nav flex-row">
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/getting-started/introduction">Getting Started</a>
+            </li>
+            <li class="nav-item selected">
+                <a class="nav-link" href="/better-nice-select/documentation/options">Documentation</a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="/better-nice-select/examples/initialization/from-html">Examples</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://github.com/kevingostomski/better-nice-select/blob/main/CHANGELOG.md">Blog</a>
+            </li>
+        </ul>
+    </div>
+    <div class="d-none d-lg-flex ms-auto align-items-center pe-5 me-4">
+        <a class="ms-3 me-2 text-white fs-5" href="https://github.com/kevingostomski/better-nice-select"><i
+                class="fa-brands fa-github"></i></a>
+        <a class="ms-2 me-3 text-white fs-5" href="https://www.npmjs.com/package/better-nice-select"><i
+                class="fa-brands fa-npm"></i></a>
+        <a class="btn btn-outline-warning mx-3" role="button"
+            href="/better-nice-select/getting-started/download">Download</a>
+    </div>
+</nav>
+  </header>
+  <main>
+    <div class="row m-4">
+    <div class="col col-lg-2 font-size-13 border-bottom border-end mb-3">
+        <nav class="navbar navbar-expand-lg justify-content-end px-2 sticky-scroll">
+            <button class="navbar-toggler m-4" type="button" data-bs-toggle="collapse" data-bs-target="#pages"
+                aria-controls="pages" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="pages">
+                <div class="navbar-nav flex-column w-100">
+                    <p class="text-white d-flex justify-content-start align-items-center border-bottom pb-2"><i
+                            class="fa-solid fa-book pe-3 text-warning"></i>API</p>
+                    <a href="/better-nice-select/documentation/options" class="nav-link p-2 selected">Options</a>
+                    <a href="/better-nice-select/documentation/events" class="nav-link p-2">Events</a>
+                    <a href="/better-nice-select/documentation/methods" class="nav-link p-2">Methods</a>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="col-lg-10 col-xxl-8">
+        <div data-bs-spy="scroll" data-bs-target="navbar-scrollspy" data-bs-smooth-scroll="true" data-offset="0"
+            tabindex="0">
+            <h1 id="select-options">Select Options</h1>
+
+<h4 id="the-select-options-api-of-better-nice-select">The Select Options API of Better-Nice-Select</h4>
+
+<hr />
+
+<h4 id="default-settings">Default Settings</h4>
+
+<p>You can change the default settings for better-nice-select by modifying <code class="language-plaintext highlighter-rouge">betterNiceSelect.DEFAULTS</code> object as example:</p>
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="nx">betterNiceSelect</span><span class="p">.</span><span class="nx">DEFAULTS</span><span class="p">.</span><span class="nx">tags</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span></code></pre></figure>
+
+<p> </p>
+
+<hr />
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="animation"><strong>animation</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-animation</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></li>
+  <li><strong>Detail:</strong>
+Set to <code class="language-plaintext highlighter-rouge">false</code> if you do not want to have animation effects.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">true</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/animation">Animation</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="customoptiongrouplabels"><strong>customOptiongroupLabels</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-custom-optiongroup-labels</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">String</code> | <code class="language-plaintext highlighter-rouge">Function</code></li>
+  <li><strong>Detail:</strong>
+Used to load the optiongroups for a select field if you do not want to prerender them in the HTML. The function needs to return elements in a <code class="language-plaintext highlighter-rouge">string[]</code> to work properly.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/customoptiongrouplabel">Custom Optiongroup Labels</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="customsearch"><strong>customSearch</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-custom-search</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">String</code> | <code class="language-plaintext highlighter-rouge">Function</code></li>
+  <li><strong>Detail:</strong>
+Used to load the select field data for adding new items. The function needs to return elements in a specific JSON format to work properly.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/customsearch">Remote Data</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="customtagcheck"><strong>customTagCheck</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-custom-tag-check</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">String</code> | <code class="language-plaintext highlighter-rouge">Function</code></li>
+  <li><strong>Detail:</strong>
+Used to add some logic to the select field to return a <code class="language-plaintext highlighter-rouge">Boolean</code> if an invalid value is entered.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/customtagcheck">Constraining Tag Creation</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="disabled"><strong>disabled</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">disabled="disabled"</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">String</code></li>
+  <li><strong>Detail:</strong>
+You can disable the whole <code class="language-plaintext highlighter-rouge">&lt;select&gt;</code> component so you can not add or delete already selected <code class="language-plaintext highlighter-rouge">&lt;option&gt;</code> tags. You can also disable single <code class="language-plaintext highlighter-rouge">&lt;option&gt;</code> tags to add them and make them unremovable.
+Works with <code class="language-plaintext highlighter-rouge">data-custom-search</code> - JSON format needs to be expanded with <code class="language-plaintext highlighter-rouge">disabled: true</code> as attribute for a single <code class="language-plaintext highlighter-rouge">item</code>. Default is <code class="language-plaintext highlighter-rouge">disabled: false</code> and does not need to be added.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/initialization/from-html">From HTML</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="init"><strong>init</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-toggle</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">String</code></li>
+  <li><strong>Detail:</strong>
+Activate better-nice-select with HTML after adding a bit of JavaScript.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">'better-nice-select'</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/initialization/from-html">From HTML</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="icons"><strong>icons</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-icons</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">Object</code></li>
+  <li><strong>Detail:</strong>
+Set own custom icons via Javascript or HTML for the placeholder icons.</li>
+  <li><strong>Default:</strong></li>
+</ul>
+
+<div class="mb-4">
+
+<figure class="highlight"><pre><code class="language-javascript" data-lang="javascript"><span class="p">{</span>
+<span class="nl">search</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;svg class="better-nice-select-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"&gt;&lt;!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--&gt;&lt;path d="M416 208c0 45.9-14.9 88.3-40 122.7L502.6 457.4c12.5 12.5 12.5 32.8 0 45.3s-32.8 12.5-45.3 0L330.7 376c-34.4 25.2-76.8 40-122.7 40C93.1 416 0 322.9 0 208S93.1 0 208 0S416 93.1 416 208zM208 352a144 144 0 1 0 0-288 144 144 0 1 0 0 288z"/&gt;&lt;/svg&gt;</span><span class="dl">'</span><span class="p">,</span>
+<span class="k">delete</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;svg class="better-nice-select-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"&gt;&lt;!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--&gt;&lt;path d="M135.2 17.7L128 32H32C14.3 32 0 46.3 0 64S14.3 96 32 96H416c17.7 0 32-14.3 32-32s-14.3-32-32-32H320l-7.2-14.3C307.4 6.8 296.3 0 284.2 0H163.8c-12.1 0-23.2 6.8-28.6 17.7zM416 128H32L53.2 467c1.6 25.3 22.6 45 47.9 45H346.9c25.3 0 46.3-19.7 47.9-45L416 128z"/&gt;&lt;/svg&gt;</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">add</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;svg class="better-nice-select-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"&gt;&lt;!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--&gt;&lt;path d="M256 80c0-17.7-14.3-32-32-32s-32 14.3-32 32V224H48c-17.7 0-32 14.3-32 32s14.3 32 32 32H192V432c0 17.7 14.3 32 32 32s32-14.3 32-32V288H400c17.7 0 32-14.3 32-32s-14.3-32-32-32H256V80z"/&gt;&lt;/svg&gt;</span><span class="dl">'</span><span class="p">,</span>
+<span class="nx">tag</span><span class="p">:</span> <span class="dl">'</span><span class="s1">&lt;svg class="better-nice-select-svg" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"&gt;&lt;!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--&gt;&lt;path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zm0-384c13.3 0 24 10.7 24 24V264c0 13.3-10.7 24-24 24s-24-10.7-24-24V152c0-13.3 10.7-24 24-24zM224 352a32 32 0 1 1 64 0 32 32 0 1 1 -64 0z"/&gt;&lt;/svg&gt;</span><span class="dl">'</span>
+<span class="p">}</span></code></pre></figure>
+
+</div>
+
+<ul>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/icons">Icons</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="inputdelay"><strong>inputDelay</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-input-delay</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">Number</code></li>
+  <li><strong>Detail:</strong>
+Debounce functionality of the search input in ms</li>
+  <li><strong>Default:</strong> 400</li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/inputdelay">Input Delay</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="locale"><strong>locale</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-locale</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">String</code></li>
+  <li><strong>Detail:</strong>
+Sets the locale to use (i.e. <code class="language-plaintext highlighter-rouge">'de-DE'</code>). Locale files currently all inside file and do not need to be pre-loaded. If left <code class="language-plaintext highlighter-rouge">undefined</code>, an empty string or a locale which is not allowed, errors are thrown.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">'en-US'</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/locale">Locale</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="scrollable"><strong>scrollable</strong></h2>
+
+<h4 id="on"><strong>on</strong></h4>
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-scrollable-on</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></li>
+  <li><strong>Detail:</strong>
+Set <code class="language-plaintext highlighter-rouge">true</code> to enable virtual scroll to display a virtual, “infinite” list. Needs <code class="language-plaintext highlighter-rouge">data-scrollable-height</code> to be set to work.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">false</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/scrollable">Scrollable</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h4 id="height"><strong>height</strong></h4>
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-scrollable-height</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">String</code></li>
+  <li><strong>Detail:</strong>
+Set a valid CSS <code class="language-plaintext highlighter-rouge">height</code> to display a virtual, “infinite” list. Needs <code class="language-plaintext highlighter-rouge">data-scrollable-on</code> to be set to work.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">undefined</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/scrollable">Scrollable</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="tags"><strong>tags</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-tags</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">Boolean</code></li>
+  <li><strong>Detail:</strong>
+Set <code class="language-plaintext highlighter-rouge">true</code> to enable dynamic item creation on input search field with pressing “,” or “Enter”. The separators that should be used when tokenizing can be specified using the <code class="language-plaintext highlighter-rouge">tokenSeparators</code> option.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">false</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/tags">Tagging</a></li>
+</ul>
+
+<p> </p>
+
+<p> </p>
+
+<h2 id="tokenseparators"><strong>tokenSeparators</strong></h2>
+
+<ul>
+  <li><strong>Attribute:</strong> <code class="language-plaintext highlighter-rouge">data-token-separators</code></li>
+  <li><strong>Type:</strong> <code class="language-plaintext highlighter-rouge">Array</code></li>
+  <li><strong>Detail:</strong>
+The separators that should be used when tokenizing.</li>
+  <li><strong>Default:</strong> <code class="language-plaintext highlighter-rouge">[",", "Enter"]</code></li>
+  <li><strong>Example:</strong> <a href="/better-nice-select/examples/options/tokenSeparators">Token Separators</a></li>
+</ul>
+
+        </div>
+    </div>
+    <div class="d-none d-xxl-block col-xxl-2 font-size-13 font-size-13">
+        <div class="sticky-scroll">
+            <nav id="navbar-scrollspy" class="border-start">
+                <nav class="nav nav-pills flex-column">
+                    <a class="nav-link" href="#animation">animation</a>
+                    <a class="nav-link" href="#customoptiongrouplabels">customOptiongroupLabels</a>
+                    <a class="nav-link" href="#customsearch">customSearch</a>
+                    <a class="nav-link" href="#customtagcheck">customTagCheck</a>
+                    <a class="nav-link" href="#disabled">disabled</a>
+                    <a class="nav-link" href="#icons">icons</a>
+                    <a class="nav-link" href="#inputdelay">inputDelay</a>
+                    <a class="nav-link" href="#locale">locale</a>
+                    <a class="nav-link" href="#scrollable">scrollable</a>
+                    <nav class="nav nav-pills flex-column">
+                        <a class="nav-link ms-3 my-1" href="#on">on</a>
+                        <a class="nav-link ms-3 my-1" href="#height">height</a>
+                    </nav>
+                    <a class="nav-link" href="#tags">tags</a>
+                    <a class="nav-link" href="#tokenseparators">tokenSeparators</a>
+                </nav>
+            </nav>
+        </div>
+    </div>
+</div>
+  </main>
+  <footer class="d-flex flex-wrap justify-content-between align-items-center px-5 py-3 mt-4 border-top">
+    <div class="d-flex align-items-center px-5 font-size-13">
+        <div>
+            <div class="mb-3">
+                <ul class="nav list-unstyled d-flex font-size-13">
+                    <li><a class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="https://github.com/kevingostomski/better-nice-select">Github</a>
+                    </li>
+                    <li class="ms-3"><a
+                            class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover"
+                            href="mailto:kevingostomski2001@gmail.com">E-Mail</a>
+                    </li>
+                </ul>
+            </div>
+            <div>
+                <p class="mb-1">
+                    © 2024 Better-Nice-Select Website. This website is developed and maintained by
+                    <a href="https://github.com/kevingostomski"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">@kevingostomski</a>
+                </p>
+                <p>
+                    Currently v1.0.0, Code licensed <a
+                        href="https://github.com/kevingostomski/bootstrap-nice-select/blob/main/LICENSE"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">MIT</a>, docs <a
+                        href="https://creativecommons.org/licenses/by/3.0/"
+                        class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-100-hover">CC BY 3.0</a>.
+                </p>
+            </div>
+        </div>
+    </div>
+</footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+  <script src="/better-nice-select/assets/js/better-nice-select-locale-all.min.js"></script>
+  <script src="/better-nice-select/assets/js/main.js"></script>
+</body>
+
+</html>
