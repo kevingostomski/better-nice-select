@@ -47,7 +47,7 @@ betterNiceSelect.DEFAULTS.tags = true;
 - **Detail:**
   Used to load the optiongroups for a select field if you do not want to prerender them in the HTML. The function needs to return elements in a `string[]` to work properly.
 - **Default:** `undefined`
-- **Example:** [Remote Data]({% link sites/examples/options/customSearch.markdown %})
+- **Example:** [Custom Optiongroup Labels]({% link sites/examples/options/customOptiongroupLabels.markdown %})
 
 &nbsp;
 

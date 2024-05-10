@@ -6,7 +6,7 @@ description: "Example how to set the 'customOptiongroupLabel' option of Better-N
 title: "Examples [Options - Custom Optiongroup Label]"
 ---
 
-# **Constraining Tag Creation**
+# **Custom Optiongroup Labels**
 
 ---
 

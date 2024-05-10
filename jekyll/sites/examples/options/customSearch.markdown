@@ -19,22 +19,14 @@ Use `customSearch` option via JavaScript or `data-custom-search` via attribute t
 <div class="container my-4 border rounded p-0">
     <div class="p-5 border-bottom">
         <select id="option-searchdata" multiple="multiple" hidden="hidden">
-            <optgroup label="Fruit">
-                <option value="Apple" selected="selected">Apple</option>
-            </optgroup>
-            <optgroup label="Vegetable">
-            </optgroup>
+            <option value="Apple" selected="selected">Apple</option>
         </select>
     </div>
     <div class="bg-highlight rounded">
 {% highlight html %}
 <div class="container">
     <select id="my-select" multiple="multiple">
-            <optgroup label="Fruit">
-                <option value="Apple" selected="selected">Apple</option>
-            </optgroup>
-            <optgroup label="Vegetable">
-            </optgroup>
+        <option value="Apple" selected="selected">Apple</option>
     </select>
 </div>
 {% endhighlight %}
