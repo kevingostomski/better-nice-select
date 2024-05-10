@@ -22,13 +22,19 @@ Use `customSearch` option via JavaScript or `data-custom-search` via attribute t
             <optgroup label="Fruit">
                 <option value="Apple" selected="selected">Apple</option>
             </optgroup>
+            <optgroup label="Vegetable">
+            </optgroup>
         </select>
     </div>
     <div class="bg-highlight rounded">
 {% highlight html %}
 <div class="container">
     <select id="my-select" multiple="multiple">
-        <option value="Apple" selected="selected">Apple</option>
+            <optgroup label="Fruit">
+                <option value="Apple" selected="selected">Apple</option>
+            </optgroup>
+            <optgroup label="Vegetable">
+            </optgroup>
     </select>
 </div>
 {% endhighlight %}
