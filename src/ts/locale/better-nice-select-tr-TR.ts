@@ -2,8 +2,8 @@
  *  Better Nice Select Turkish (Turkey) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com> 
 */
-import BetterNiceSelect from "../better-nice-select";
-import { LOCALISATION, DEFAULTS } from "../better-nice-select"
+import { LOCALISATION, DEFAULTS, BetterNiceSelect } from "../better-nice-select"
+
 
 const TR = {
     formatSearch(): string {

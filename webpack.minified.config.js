@@ -5,7 +5,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); // CSS Minif
 const TerserPlugin = require("terser-webpack-plugin"); // JS Minifier
 const fs = require('fs'); // used for language output per locale
 
-let version = "v1.0.0";
+let version = "v1.1.0";
 let bannerText = `
 Better-Nice-Select ${version} (https://github.com/kevingostomski/better-nice-select)
 Copyright 2024 Kevin Gostomski <kevingostomski2001@gmail.com>
@@ -53,7 +53,7 @@ fileNames.forEach(function (filename) {
         module: {
             rules: [
                 {
-                    test: /\.s[ac]ss$/i,
+                    test: /\.scss$/,
                     use: [MiniCssExtractPlugin.loader, "css-loader",
                     {
                         loader: 'sass-loader',
@@ -72,7 +72,7 @@ fileNames.forEach(function (filename) {
             ]
         },
         resolve: {
-            extensions: ['.tsx', '.ts', '.js'],
+            extensions: ['.tsx', '.ts', '.js', '.scss'],
         }
     });
 });
@@ -107,7 +107,7 @@ const minifiedMain = {
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.scss$/,
                 use: [MiniCssExtractPlugin.loader, "css-loader",
                 {
                     loader: 'sass-loader',
@@ -126,7 +126,7 @@ const minifiedMain = {
         ]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.js', '.scss'],
     }
 };
 
@@ -160,7 +160,7 @@ const minifiedAllLocales = {
     module: {
         rules: [
             {
-                test: /\.s[ac]ss$/i,
+                test: /\.scss$/,
                 use: [MiniCssExtractPlugin.loader, "css-loader",
                 {
                     loader: 'sass-loader',
@@ -179,7 +179,7 @@ const minifiedAllLocales = {
         ]
     },
     resolve: {
-        extensions: ['.tsx', '.ts', '.js'],
+        extensions: ['.tsx', '.ts', '.js', '.scss'],
     }
 };
 

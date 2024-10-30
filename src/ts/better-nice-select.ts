@@ -1,4 +1,4 @@
-import "../scss/better-nice-select.scss";
+import '../scss/better-nice-select.scss';
 import Constants from "./constants/index";
 import Data from './utils/data';
 import Utils from "./utils/index";
@@ -21,7 +21,7 @@ type SearchItem = {
 /**
  * Creates, initialize and injects a BetterNiceSelect component into the HTML DOM and makes a given <select> element hidden
  */
-export default class BetterNiceSelect implements DefaultType {
+export class BetterNiceSelect implements DefaultType {
     animation: boolean;
     multiple: boolean;
     disabled: boolean;
