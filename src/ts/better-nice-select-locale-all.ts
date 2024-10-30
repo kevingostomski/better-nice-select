@@ -1,4 +1,4 @@
-import BetterNiceSelect from "./better-nice-select";
+import { DEFAULTS, LOCALISATION, BetterNiceSelect} from "./better-nice-select"
 import "./locale/better-nice-select-af-ZA";
 import "./locale/better-nice-select-ar-SA";
 import "./locale/better-nice-select-bg-BG";
@@ -20,7 +20,6 @@ import "./locale/better-nice-select-ro-RO";
 import "./locale/better-nice-select-ru-RU";
 import "./locale/better-nice-select-tr-TR";
 import "./locale/better-nice-select-zh-CN";
-import { DEFAULTS, LOCALISATION } from "./better-nice-select"
 
 DEFAULTS.locale = "en-US";
 

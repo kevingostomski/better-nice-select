@@ -1,6 +1,6 @@
 /*!
  * 
- * Better-Nice-Select v1.0.0 (https://github.com/kevingostomski/better-nice-select)
+ * Better-Nice-Select v1.1.0 (https://github.com/kevingostomski/better-nice-select)
  * Copyright 2024 Kevin Gostomski <kevingostomski2001@gmail.com>
  * Licensed under MIT (https://github.com/kevingostomski/better-nice-select/blob/main/LICENSE)
  *
@@ -56,12 +56,12 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  BetterNiceSelect: () => (/* reexport */ better_nice_select),
+  BetterNiceSelect: () => (/* reexport */ BetterNiceSelect),
   DEFAULTS: () => (/* reexport */ DEFAULTS),
   LOCALISATION: () => (/* reexport */ LOCALISATION)
 });
 
-;// CONCATENATED MODULE: ./src/ts/constants/index.ts
+;// ./src/ts/constants/index.ts
 /**
  * Object with helper texts to render the HTML elements
  */
@@ -152,7 +152,7 @@ const exportedObject = {
 };
 /* harmony default export */ const constants = (exportedObject);
 
-;// CONCATENATED MODULE: ./src/ts/utils/data.ts
+;// ./src/ts/utils/data.ts
 /**
  * Used to only have one BetterNiceSelect-instance per select trigger available during DOM render process
  */
@@ -198,7 +198,7 @@ const elementMap = new Map();
     }
 });
 
-;// CONCATENATED MODULE: ./src/ts/utils/index.ts
+;// ./src/ts/utils/index.ts
 /* harmony default export */ const utils = ({
     /**
      * Create HTML single Element from string input
@@ -252,7 +252,7 @@ const elementMap = new Map();
     },
 });
 
-;// CONCATENATED MODULE: ./src/ts/better-nice-select.ts
+;// ./src/ts/better-nice-select.ts
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1278,14 +1278,12 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
         document.querySelector('.better-nice-select-overlay .search-container .focus-border').classList.remove("active");
     });
 };
-/* harmony default export */ const better_nice_select = (BetterNiceSelect);
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-af-ZA.ts
+;// ./src/ts/locale/better-nice-select-af-ZA.ts
 /*
  *  Better Nice Select Afrikaans (South Africa) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const AF = {
     formatSearch() {
@@ -1308,12 +1306,11 @@ LOCALISATION['af-ZA'] = LOCALISATION['af'] = AF;
 DEFAULTS.locale = "af-ZA";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-ar-SA.ts
+;// ./src/ts/locale/better-nice-select-ar-SA.ts
 /*
  *  Better Nice Select Arabic (Saudi Arabia) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const AR = {
     formatSearch() {
@@ -1336,12 +1333,11 @@ LOCALISATION['ar-SA'] = LOCALISATION['ar'] = AR;
 DEFAULTS.locale = "ar-SA";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-bg-BG.ts
+;// ./src/ts/locale/better-nice-select-bg-BG.ts
 /*
  *  Better Nice Select Bulgarian (Bulgaria) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const BG = {
     formatSearch() {
@@ -1364,12 +1360,11 @@ LOCALISATION['bg-BG'] = LOCALISATION['bg'] = BG;
 DEFAULTS.locale = "bg-BG";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-ca-ES.ts
+;// ./src/ts/locale/better-nice-select-ca-ES.ts
 /*
  *  Better Nice Select Catalan (Spain) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const CA = {
     formatSearch() {
@@ -1392,12 +1387,11 @@ LOCALISATION['ca-ES'] = LOCALISATION['ca'] = CA;
 DEFAULTS.locale = "ca-ES";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-cs-CZ.ts
+;// ./src/ts/locale/better-nice-select-cs-CZ.ts
 /*
  *  Better Nice Select Czech (Czech Republic) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const CS = {
     formatSearch() {
@@ -1420,12 +1414,11 @@ LOCALISATION['cs-CZ'] = LOCALISATION['cs'] = CS;
 DEFAULTS.locale = "cs-CZ";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-de-DE.ts
+;// ./src/ts/locale/better-nice-select-de-DE.ts
 /*
  *  Better Nice Select German (Germany) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const DE = {
     formatSearch() {
@@ -1448,12 +1441,11 @@ LOCALISATION['de-DE'] = LOCALISATION['de'] = DE;
 DEFAULTS.locale = "de-DE";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-en-US.ts
+;// ./src/ts/locale/better-nice-select-en-US.ts
 /*
  *  Better Nice Select English (United States) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const better_nice_select_en_US_EN = {
     formatSearch() {
@@ -1476,12 +1468,11 @@ LOCALISATION['en-US'] = LOCALISATION['en'] = better_nice_select_en_US_EN;
 DEFAULTS.locale = "en-US";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-es-ES.ts
+;// ./src/ts/locale/better-nice-select-es-ES.ts
 /*
  *  Better Nice Select Spanish (Spain, International Sort) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const ES = {
     formatSearch() {
@@ -1504,12 +1495,11 @@ LOCALISATION['es-ES'] = LOCALISATION['es'] = ES;
 DEFAULTS.locale = "es-ES";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-et-EE.ts
+;// ./src/ts/locale/better-nice-select-et-EE.ts
 /*
  *  Better Nice Select Estonian (Estonia) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const ET = {
     formatSearch() {
@@ -1532,12 +1522,11 @@ LOCALISATION['et-EE'] = LOCALISATION['et'] = ET;
 DEFAULTS.locale = "et-EE";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-fa-IR.ts
+;// ./src/ts/locale/better-nice-select-fa-IR.ts
 /*
  *  Better Nice Select Persian (Iran) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const FA = {
     formatSearch() {
@@ -1560,12 +1549,11 @@ LOCALISATION['fa-IR'] = LOCALISATION['fa'] = FA;
 DEFAULTS.locale = "fa-IR";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-fi-FI.ts
+;// ./src/ts/locale/better-nice-select-fi-FI.ts
 /*
  *  Better Nice Select Finnish (Finland) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const FI = {
     formatSearch() {
@@ -1588,12 +1576,11 @@ LOCALISATION['fi-FI'] = LOCALISATION['fi'] = FI;
 DEFAULTS.locale = "fi-FI";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-fr-FR.ts
+;// ./src/ts/locale/better-nice-select-fr-FR.ts
 /*
  *  Better Nice Select French (France) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const FR = {
     formatSearch() {
@@ -1616,12 +1603,11 @@ LOCALISATION['fr-FR'] = LOCALISATION['fr'] = FR;
 DEFAULTS.locale = "fr-FR";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-it-IT.ts
+;// ./src/ts/locale/better-nice-select-it-IT.ts
 /*
  *  Better Nice Select Italian (Italy) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const IT = {
     formatSearch() {
@@ -1644,12 +1630,11 @@ LOCALISATION['it-IT'] = LOCALISATION['it'] = IT;
 DEFAULTS.locale = "it-IT";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-ja-JP.ts
+;// ./src/ts/locale/better-nice-select-ja-JP.ts
 /*
  *  Better Nice Select Japanese (Japan) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const JA = {
     formatSearch() {
@@ -1672,12 +1657,11 @@ LOCALISATION['ja-JP'] = LOCALISATION['ja'] = JA;
 DEFAULTS.locale = "ja-JP";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-nl-NL.ts
+;// ./src/ts/locale/better-nice-select-nl-NL.ts
 /*
  *  Better Nice Select Dutch (Netherlands) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const NL = {
     formatSearch() {
@@ -1700,12 +1684,11 @@ LOCALISATION['nl-NL'] = LOCALISATION['nl'] = NL;
 DEFAULTS.locale = "nl-NL";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-pl-PL.ts
+;// ./src/ts/locale/better-nice-select-pl-PL.ts
 /*
  *  Better Nice Select Polish (Poland) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const PL = {
     formatSearch() {
@@ -1728,12 +1711,11 @@ LOCALISATION['pl-PL'] = LOCALISATION['pl'] = PL;
 DEFAULTS.locale = "pl-PL";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-pt-PT.ts
+;// ./src/ts/locale/better-nice-select-pt-PT.ts
 /*
  *  Better Nice Select Portuguese (Portugal) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const PT = {
     formatSearch() {
@@ -1756,12 +1738,11 @@ LOCALISATION['pt-PT'] = LOCALISATION['pt'] = PT;
 DEFAULTS.locale = "pt-PT";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-ro-RO.ts
+;// ./src/ts/locale/better-nice-select-ro-RO.ts
 /*
  *  Better Nice Select Romanian (Romania) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const RO = {
     formatSearch() {
@@ -1784,12 +1765,11 @@ LOCALISATION['ro-RO'] = LOCALISATION['ro'] = RO;
 DEFAULTS.locale = "ro-RO";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-ru-RU.ts
+;// ./src/ts/locale/better-nice-select-ru-RU.ts
 /*
  *  Better Nice Select Russian (Russia) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const RU = {
     formatSearch() {
@@ -1812,12 +1792,11 @@ LOCALISATION['ru-RU'] = LOCALISATION['ru'] = RU;
 DEFAULTS.locale = "ru-RU";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-tr-TR.ts
+;// ./src/ts/locale/better-nice-select-tr-TR.ts
 /*
  *  Better Nice Select Turkish (Turkey) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const TR = {
     formatSearch() {
@@ -1840,12 +1819,11 @@ LOCALISATION['tr-TR'] = LOCALISATION['tr'] = TR;
 DEFAULTS.locale = "tr-TR";
 
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-zh-CN.ts
+;// ./src/ts/locale/better-nice-select-zh-CN.ts
 /*
  *  Better Nice Select Chinese (Simplified, People's Republic of China) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const ZH = {
     formatSearch() {
@@ -1868,8 +1846,7 @@ LOCALISATION['zh-CN'] = LOCALISATION['zh'] = ZH;
 DEFAULTS.locale = "zh-CN";
 
 
-;// CONCATENATED MODULE: ./src/ts/better-nice-select-locale-all.ts
-
+;// ./src/ts/better-nice-select-locale-all.ts
 
 
 

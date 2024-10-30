@@ -1,6 +1,6 @@
 /*!
  * 
- * Better-Nice-Select v1.0.0 (https://github.com/kevingostomski/better-nice-select)
+ * Better-Nice-Select v1.1.0 (https://github.com/kevingostomski/better-nice-select)
  * Copyright 2024 Kevin Gostomski <kevingostomski2001@gmail.com>
  * Licensed under MIT (https://github.com/kevingostomski/better-nice-select/blob/main/LICENSE)
  *
@@ -56,12 +56,12 @@ __webpack_require__.r(__webpack_exports__);
 
 // EXPORTS
 __webpack_require__.d(__webpack_exports__, {
-  BetterNiceSelect: () => (/* reexport */ better_nice_select),
+  BetterNiceSelect: () => (/* reexport */ BetterNiceSelect),
   DEFAULTS: () => (/* reexport */ DEFAULTS),
   LOCALISATION: () => (/* reexport */ LOCALISATION)
 });
 
-;// CONCATENATED MODULE: ./src/ts/constants/index.ts
+;// ./src/ts/constants/index.ts
 /**
  * Object with helper texts to render the HTML elements
  */
@@ -152,7 +152,7 @@ const exportedObject = {
 };
 /* harmony default export */ const constants = (exportedObject);
 
-;// CONCATENATED MODULE: ./src/ts/utils/data.ts
+;// ./src/ts/utils/data.ts
 /**
  * Used to only have one BetterNiceSelect-instance per select trigger available during DOM render process
  */
@@ -198,7 +198,7 @@ const elementMap = new Map();
     }
 });
 
-;// CONCATENATED MODULE: ./src/ts/utils/index.ts
+;// ./src/ts/utils/index.ts
 /* harmony default export */ const utils = ({
     /**
      * Create HTML single Element from string input
@@ -252,7 +252,7 @@ const elementMap = new Map();
     },
 });
 
-;// CONCATENATED MODULE: ./src/ts/better-nice-select.ts
+;// ./src/ts/better-nice-select.ts
 var __awaiter = (undefined && undefined.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -1278,14 +1278,12 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
         document.querySelector('.better-nice-select-overlay .search-container .focus-border').classList.remove("active");
     });
 };
-/* harmony default export */ const better_nice_select = (BetterNiceSelect);
 
-;// CONCATENATED MODULE: ./src/ts/locale/better-nice-select-pl-PL.ts
+;// ./src/ts/locale/better-nice-select-pl-PL.ts
 /*
  *  Better Nice Select Polish (Poland) Translation
  *  Author: Kevin Gostomski <kevingostomski2001@gmail.com>
 */
-
 
 const PL = {
     formatSearch() {
