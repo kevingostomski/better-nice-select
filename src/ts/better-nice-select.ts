@@ -592,6 +592,9 @@ export class BetterNiceSelect implements DefaultType {
                     headerElement.innerHTML = optGroup.label;
                     headerElement.setAttribute("data-optgroup", optGroup.label);
                     ulElement.appendChild(headerElement);
+                    if (instance.customOptiongroupLabels === undefined) {
+                        instance.#searchData.possibleOptGroupLabels.push(optGroup.label);
+                    }
                     for (let optionElement of Array.from(optGroup.children) as HTMLOptionElement[]) {
                         if (optionElement.selected) {
                             ulElement.appendChild(instance.#createDeleteButton(optionElement.value, optionElement.innerText, optGroup.label, optionElement.disabled, selectField));
@@ -603,11 +606,6 @@ export class BetterNiceSelect implements DefaultType {
                                 label: optGroup.label,
                                 disabled: optionElement.disabled
                             });
-                        }
-                        if (instance.customOptiongroupLabels === undefined) {
-                            if (!instance.#searchData.possibleOptGroupLabels.includes(optGroup.label)) {
-                                instance.#searchData.possibleOptGroupLabels.push(optGroup.label);
-                            }
                         }
                     }
                 }

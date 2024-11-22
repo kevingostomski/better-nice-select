@@ -307,6 +307,9 @@ class BetterNiceSelect {
                     headerElement.innerHTML = optGroup.label;
                     headerElement.setAttribute("data-optgroup", optGroup.label);
                     ulElement.appendChild(headerElement);
+                    if (instance.customOptiongroupLabels === undefined) {
+                        __classPrivateFieldGet(instance, _BetterNiceSelect_searchData, "f").possibleOptGroupLabels.push(optGroup.label);
+                    }
                     for (let optionElement of Array.from(optGroup.children)) {
                         if (optionElement.selected) {
                             ulElement.appendChild(__classPrivateFieldGet(instance, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(instance, optionElement.value, optionElement.innerText, optGroup.label, optionElement.disabled, selectField));
@@ -318,11 +321,6 @@ class BetterNiceSelect {
                                 label: optGroup.label,
                                 disabled: optionElement.disabled
                             });
-                        }
-                        if (instance.customOptiongroupLabels === undefined) {
-                            if (!__classPrivateFieldGet(instance, _BetterNiceSelect_searchData, "f").possibleOptGroupLabels.includes(optGroup.label)) {
-                                __classPrivateFieldGet(instance, _BetterNiceSelect_searchData, "f").possibleOptGroupLabels.push(optGroup.label);
-                            }
                         }
                     }
                 }
