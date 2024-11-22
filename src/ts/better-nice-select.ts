@@ -12,7 +12,7 @@ export const DEFAULTS: IDefault = Object.create(Constants.DEFAULT);
 export const LOCALISATION: Localisation = Object.create(Constants.LOCALISATION);
 
 /**
- * Creates, initialize and injects a BetterNiceSelect component into the HTML DOM and makes a given <select> element hidden
+ * Creates, initialize and injects a BetterNiceSelect component into the HTML DOM and makes the given <select> element hidden
  */
 export class BetterNiceSelect implements IDefault {
     animation: boolean;
@@ -75,19 +75,19 @@ export class BetterNiceSelect implements IDefault {
                 badge.appendChild(Utils.htmlToElement(`<span class="badge">${searchOption.label}</span>`));
                 li.appendChild(badge);
             }
-            const self = this;
-            li.addEventListener('click', function () {
-                if (!self.multiple) {
+
+            li.addEventListener('click', () => {
+                if (!this.multiple) {
                     const deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
-                    for (let i = 0; i < deleteLiElements.length; i++) {
-                        deleteLiElements[i].remove();
+                    for (const deleteLiElement of deleteLiElements) {
+                        deleteLiElement.remove();
                     }
                     const oldSelectedOption = selectField.querySelector('option[selected]');
                     if (oldSelectedOption) {
                         oldSelectedOption.removeAttribute("selected");
                     }
                 }
-                let option = selectField.querySelector(`option[value='${this.getAttribute("data-id")}']`) as HTMLOptionElement;
+                let option = selectField.querySelector(`option[value='${li.getAttribute("data-id")}']`) as HTMLOptionElement;
                 if (!option) {
                     option = document.createElement("option");
                     option.value = searchOption.id;
@@ -99,12 +99,12 @@ export class BetterNiceSelect implements IDefault {
                     }
                 }
                 option.setAttribute("selected", 'selected');
-                self.#closeOverlay();
+                this.#closeOverlay();
                 if (selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${searchOption.id}']`)) {
                     // already selected. nothing to do...
                     return;
                 }
-                const deleteButton = self.#createDeleteButton(searchOption.id, searchOption.text, searchOption.label ? searchOption.label : undefined, searchOption.disabled ? searchOption.disabled : false, selectField);
+                const deleteButton = this.#createDeleteButton(searchOption.id, searchOption.text, searchOption.label ? searchOption.label : undefined, searchOption.disabled ? searchOption.disabled : false, selectField);
                 if (searchOption.label) {
                     let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${searchOption.label}]`);
                     if (!selectedHeader) {
@@ -119,45 +119,48 @@ export class BetterNiceSelect implements IDefault {
                 }
                 selectField.dispatchEvent(afterAdd);
             });
-            li.addEventListener('keydown', function (event) {
+
+            li.addEventListener('keydown', (event) => {
                 event.preventDefault();
                 const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
                 if (event.key === "ArrowDown") {
-                    if (self.#currentLi + 1 >= liElements.length) {
-                        self.#currentLi = 0;
+                    if (this.#currentLi + 1 >= liElements.length) {
+                        this.#currentLi = 0;
                     } else {
-                        self.#currentLi++;
+                        this.#currentLi++;
                     }
-                    liElements[self.#currentLi].tabIndex = 0;
-                    liElements[self.#currentLi].focus();
-                    this.tabIndex = -1;
+                    liElements[this.#currentLi].tabIndex = 0;
+                    liElements[this.#currentLi].focus();
+                    li.tabIndex = -1;
                 }
                 if (event.key === "ArrowUp") {
-                    if (self.#currentLi - 1 < 0) {
-                        self.#currentLi = liElements.length - 1;
+                    if (this.#currentLi - 1 < 0) {
+                        this.#currentLi = liElements.length - 1;
                     } else {
-                        self.#currentLi--;
+                        this.#currentLi--;
                     }
-                    liElements[self.#currentLi].tabIndex = 0;
-                    liElements[self.#currentLi].focus();
-                    this.tabIndex = -1;
+                    liElements[this.#currentLi].tabIndex = 0;
+                    liElements[this.#currentLi].focus();
+                    li.tabIndex = -1;
                 }
                 if (event.key === "Tab") {
                     (document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement).focus();
                 }
                 if (event.key === "Enter") {
-                    this.click();
+                    li.click();
                 }
                 if (event.key === "Escape") {
-                    self.#closeOverlay();
+                    this.#closeOverlay();
                 }
             });
-            li.addEventListener("focusin", function () {
+
+            li.addEventListener("focusin", () => {
                 const input = document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement;
                 const inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint") as HTMLInputElement;
                 input.value = searchOption.text;
                 inputHint.value = searchOption.text;
             });
+
             searchList.appendChild(li);
         }
     }
@@ -171,6 +174,7 @@ export class BetterNiceSelect implements IDefault {
                 value: optValue
             }
         });
+
         const liElement = document.createElement("li");
         liElement.classList.add(...Constants.CLASSES.deleteItem);
 
@@ -186,6 +190,7 @@ export class BetterNiceSelect implements IDefault {
         if (disabled || this.disabled) {
             button.setAttribute("disabled", 'disabled');
         }
+
         const icon = document.createElement("span");
         if (typeof this.icons.delete === 'string') {
             icon.insertAdjacentHTML("beforeend", this.icons.delete);
@@ -195,18 +200,22 @@ export class BetterNiceSelect implements IDefault {
         button.appendChild(icon);
         liElement.appendChild(button);
 
-        const self = this;
-        button.addEventListener("click", function () {
-            selectField.querySelector(`option[value='${this.getAttribute("data-id")}']`).removeAttribute("selected");
-            if (this.parentElement.previousElementSibling && this.parentElement.previousElementSibling.tagName.toUpperCase() === "H5" && (this.parentElement.nextElementSibling && this.parentElement.nextElementSibling.tagName.toUpperCase() === "H5" || !this.parentElement.nextElementSibling)) {
-                this.parentElement.previousElementSibling.remove();
+        button.addEventListener("click", () => {
+            selectField.querySelector(`option[value='${button.getAttribute("data-id")}']`).removeAttribute("selected");
+
+            if (button.parentElement.previousElementSibling && button.parentElement.previousElementSibling.tagName.toUpperCase() === "H5" &&
+                (button.parentElement.nextElementSibling && button.parentElement.nextElementSibling.tagName.toUpperCase() === "H5" || !button.parentElement.nextElementSibling)) {
+                button.parentElement.previousElementSibling.remove();
             }
-            this.parentElement.remove();
-            if (!self.multiple && selectField.nextElementSibling.querySelectorAll(".better-nice-select .delete-list li").length === 0) {
+
+            button.parentElement.remove();
+
+            if (!this.multiple && selectField.nextElementSibling.querySelectorAll(".better-nice-select .delete-list li").length === 0) {
                 selectField.selectedIndex = -1;
             }
-            if (self.customSearch === undefined && !self.#searchData.items.map(x => x.id.toLowerCase()).includes(optKey.toLowerCase())) {
-                self.#searchData.items.push(label ?
+
+            if (this.customSearch === undefined && !this.#searchData.items.map(x => x.id.toLowerCase()).includes(optKey.toLowerCase())) {
+                this.#searchData.items.push(label ?
                     {
                         id: optKey,
                         text: optValue,
@@ -218,6 +227,7 @@ export class BetterNiceSelect implements IDefault {
                         disabled: disabled
                     });
             }
+
             selectField.dispatchEvent(afterDelete);
         });
         return liElement;
@@ -263,6 +273,7 @@ export class BetterNiceSelect implements IDefault {
         return optgroupHint;
     }
 
+
     #triggerSearchContainerAnimationForOptgroupSelected() {
         const searchContainer = document.querySelector(".better-nice-select-overlay .search-container") as HTMLElement;
         if (!searchContainer) {
@@ -274,7 +285,7 @@ export class BetterNiceSelect implements IDefault {
         }
         // needed so animation is getting retriggered
         // see here: https://stackoverflow.com/questions/50612096/removing-class-from-element-isnt-triggering-css-animation
-        searchContainer.offsetHeight;
+        searchContainer.offsetHeight; // eslint-disable-line
         searchContainer.classList.add("optgroup-selected");
     }
 
@@ -289,19 +300,13 @@ export class BetterNiceSelect implements IDefault {
         }
         // needed so animation is getting retriggered
         // see here: https://stackoverflow.com/questions/50612096/removing-class-from-element-isnt-triggering-css-animation
-        searchContainer.offsetHeight;
+        searchContainer.offsetHeight; // eslint-disable-line
         searchContainer.classList.add("to-many-options");
     }
 
     #createOverlay(selectField: HTMLSelectElement) {
-        const hideOverlayOnClick = function (event: MouseEvent) {
-            const target = (event && event.target);
-            if (target == this) {
-                self.#closeOverlay();
-            }
-        }
 
-        const filterOnSearchInput = async function (filter: string, searchInput: HTMLInputElement, searchHint: HTMLInputElement, animationWrapper: HTMLDivElement) {
+        const filterOnSearchInput = async (filter: string, searchInput: HTMLInputElement, searchHint: HTMLInputElement, animationWrapper: HTMLDivElement) => {
             document.querySelector(".better-nice-select-overlay .search-container ul").classList.remove("active");
             animationWrapper.classList.add("active");
             searchHint.value = "";
@@ -312,29 +317,29 @@ export class BetterNiceSelect implements IDefault {
             }
             const selectedOptgroupElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
             let founded: ISearchItem;
-            if (self.customSearch !== undefined) {
-                await self.#filterRemoteSearchData(filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null);
+            if (this.customSearch !== undefined) {
+                await this.#filterRemoteSearchData(filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null);
                 // it could be that search was already emptied again because getting data takes to long so we can early return
                 if (searchInput.value.length === 0) {
                     return;
                 }
-                self.#refreshSearchListItems(selectField);
-                founded = self.#searchData.items.find(item => item.text.toLowerCase().startsWith(filter.toLowerCase()));
+                this.#refreshSearchListItems(selectField);
+                founded = this.#searchData.items.find(item => item.text.toLowerCase().startsWith(filter.toLowerCase()));
             } else {
-                self.#refreshSearchListItems(selectField);
+                this.#refreshSearchListItems(selectField);
                 const liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
-                for (let i = 0; i < liNodes.length; i++) {
-                    if (selectedOptgroupElement && liNodes[i].querySelector(".badge").textContent !== selectedOptgroupElement.getAttribute("data-optgroup")) {
-                        liNodes[i].classList.add("hidden");
+                for (const liNode of liNodes) {
+                    if (selectedOptgroupElement && liNode.querySelector(".badge").textContent !== selectedOptgroupElement.getAttribute("data-optgroup")) {
+                        liNode.classList.add("hidden");
                         continue;
                     }
-                    if (liNodes[i].firstChild.textContent.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
-                        if (!founded && liNodes[i].firstChild.textContent.toLowerCase().startsWith(filter.toLowerCase())) {
-                            founded = self.#searchData.items.find(item => item.id === liNodes[i].getAttribute("data-id"));
+                    if (liNode.firstChild.textContent.toLowerCase().indexOf(filter.toLowerCase()) > -1) {
+                        if (!founded && liNode.firstChild.textContent.toLowerCase().startsWith(filter.toLowerCase())) {
+                            founded = this.#searchData.items.find(item => item.id === liNode.getAttribute("data-id"));
                         }
-                        liNodes[i].classList.remove("hidden");
+                        liNode.classList.remove("hidden");
                     } else {
-                        liNodes[i].classList.add("hidden");
+                        liNode.classList.add("hidden");
                     }
                 }
             }
@@ -345,9 +350,9 @@ export class BetterNiceSelect implements IDefault {
             document.querySelector(".better-nice-select-overlay .search-container ul").classList.add("active");
         }
 
-        const keyboardInteraction = async function (event: KeyboardEvent) {
+        const keyboardInteraction = async (event: KeyboardEvent) => {
 
-            const allowTagsInputInteraction = async function (keyValue: string) {
+            const allowTagsInputInteraction = async (keyValue: string) => {
 
                 const afterAdd = new CustomEvent("inserted.better-nice-select", {
                     detail: {
@@ -356,35 +361,35 @@ export class BetterNiceSelect implements IDefault {
                     }
                 });
 
-                const checkTagBeforeCreation = function () {
-                    if (self['customTagCheck'] instanceof Function || typeof self['customTagCheck'] === 'function') {
-                        return self['customTagCheck'](keyValue);
+                const checkTagBeforeCreation = () => {
+                    if (this['customTagCheck'] instanceof Function || typeof this['customTagCheck'] === 'function') {
+                        return this['customTagCheck'](keyValue);
                     }
-                    if (typeof self['customTagCheck'] === 'string') {
-                        return Utils.executeFunctionByName(self['customTagCheck'], window, keyValue);
+                    if (typeof this['customTagCheck'] === 'string') {
+                        return Utils.executeFunctionByName(this['customTagCheck'], window, keyValue);
                     }
                     return true;
                 }
-                if (self.tokenSeparators.includes(event.key)) {
+                if (this.tokenSeparators.includes(event.key)) {
                     enterAlreadyPressed = true;
                     document.querySelector(".better-nice-select-overlay .search-container ul").classList.remove("active");
                     const animationWrapper = document.querySelector(".better-nice-select-overlay .search-container .loading-wrapper");
-                    animationWrapper.firstChild.textContent = LOCALISATION[self.locale].formatCheckingMessage();
+                    animationWrapper.firstChild.textContent = LOCALISATION[this.locale].formatCheckingMessage();
                     animationWrapper.classList.add("active");
                     await Promise.resolve(checkTagBeforeCreation()).then(value => {
                         if (!value) {
                             console.error(`Can not create option with value '${keyValue}' because of given check function...`);
-                            self.#closeOverlay();
+                            this.#closeOverlay();
                             return;
                         }
                         let optgroup;
-                        if (self.#searchData.possibleOptGroupLabels.length !== 0) {
+                        if (this.#searchData.possibleOptGroupLabels.length !== 0) {
                             const optgroupSelectedElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
                             if (!optgroupSelectedElement) {
-                                self.#triggerSearchContainerAnimationForWrongInput();
+                                this.#triggerSearchContainerAnimationForWrongInput();
                                 console.error(`Can not create option with value '${keyValue}' because you need to select an optiongroup first...`);
                                 animationWrapper.classList.remove("active");
-                                animationWrapper.firstChild.textContent = LOCALISATION[self.locale].formatLoadingMessage();
+                                animationWrapper.firstChild.textContent = LOCALISATION[this.locale].formatLoadingMessage();
                                 document.querySelector(".better-nice-select-overlay .search-container ul").classList.add("active");
                                 return;
                             }
@@ -403,7 +408,7 @@ export class BetterNiceSelect implements IDefault {
                         }
                         option.setAttribute("selected", "selected");
                         if (!selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${keyValue}']`)) {
-                            const newDeleteButton = self.#createDeleteButton(keyValue, keyValue, optgroup ? optgroup : undefined, false, selectField);
+                            const newDeleteButton = this.#createDeleteButton(keyValue, keyValue, optgroup ? optgroup : undefined, false, selectField);
                             if (optgroup) {
                                 let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${optgroup}]`);
                                 if (!selectedHeader) {
@@ -418,7 +423,7 @@ export class BetterNiceSelect implements IDefault {
                             }
                         }
                         animationWrapper.classList.remove("active");
-                        self.#closeOverlay();
+                        this.#closeOverlay();
                         selectField.dispatchEvent(afterAdd);
                     })
                 }
@@ -426,8 +431,8 @@ export class BetterNiceSelect implements IDefault {
 
             // multi purpose button 'Enter' should only react to one event
             let enterAlreadyPressed = false;
-            if (self.tags) {
-                await allowTagsInputInteraction(this.value.trim());
+            if (this.tags) {
+                await allowTagsInputInteraction((event.target as HTMLInputElement).value.trim());
             }
             if ((event.key === "Tab" && !event.shiftKey) || event.key === "ArrowDown") {
                 event.preventDefault();
@@ -435,54 +440,54 @@ export class BetterNiceSelect implements IDefault {
                 if (liElements.length > 0) {
                     liElements.forEach(element => element.tabIndex = -1);
                     liElements[0].tabIndex = 0;
-                    self.#currentLi = 0;
+                    this.#currentLi = 0;
                     liElements[0].focus();
                 }
             }
-            if (event.key === "ArrowRight" && (event.target as HTMLInputElement).selectionStart === this.value.length) {
+            if (event.key === "ArrowRight" && (event.target as HTMLInputElement).selectionStart === (event.target as HTMLInputElement).value.length) {
                 const inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint") as HTMLInputElement;
                 if (inputHint.value && inputHint.value !== "") {
                     event.preventDefault();
-                    this.value = inputHint.value;
+                    (event.target as HTMLInputElement).value = inputHint.value;
                     const liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
-                    for (let i = 0; i < liNodes.length; i++) {
-                        const txtValue = liNodes[i].firstChild.textContent;
+                    for (const liNode of liNodes) {
+                        const txtValue = liNode.firstChild.textContent;
                         if (txtValue.toLowerCase().indexOf(inputHint.value.toLowerCase()) > -1) {
-                            liNodes[i].classList.remove("hidden");
+                            liNode.classList.remove("hidden");
                         } else {
-                            liNodes[i].classList.add("hidden");
+                            liNode.classList.add("hidden");
                         }
                     }
                 }
             }
-            if (event.shiftKey && event.key === 'Tab' && self.#searchData.possibleOptGroupLabels.length !== 0) {
+            if (event.shiftKey && event.key === 'Tab' && this.#searchData.possibleOptGroupLabels.length !== 0) {
                 event.preventDefault();
-                this.value = "";
-                this.dispatchEvent(new Event('input', { bubbles: true }));
+                (event.target as HTMLInputElement).value = "";
+                (event.target as HTMLInputElement).dispatchEvent(new Event('input', { bubbles: true }));
                 let optGroupSearchSelected = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected") as HTMLDivElement;
                 if (!optGroupSearchSelected) {
                     optGroupSearchSelected = document.createElement("div");
                     optGroupSearchSelected.classList.add(...Constants.CLASSES.searchOptGroupSelected);
                     document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-hint").remove();
-                    this.insertAdjacentElement("afterend", optGroupSearchSelected);
+                    (event.target as HTMLInputElement).insertAdjacentElement("afterend", optGroupSearchSelected);
                 }
-                if (self.#currentOptGroup < self.#searchData.possibleOptGroupLabels.length) {
-                    optGroupSearchSelected.innerText = self.#searchData.possibleOptGroupLabels[self.#currentOptGroup];
-                    optGroupSearchSelected.setAttribute("data-optgroup", self.#searchData.possibleOptGroupLabels[self.#currentOptGroup]);
-                    self.#currentOptGroup++;
+                if (this.#currentOptGroup < this.#searchData.possibleOptGroupLabels.length) {
+                    optGroupSearchSelected.innerText = this.#searchData.possibleOptGroupLabels[this.#currentOptGroup];
+                    optGroupSearchSelected.setAttribute("data-optgroup", this.#searchData.possibleOptGroupLabels[this.#currentOptGroup]);
+                    this.#currentOptGroup++;
                 } else {
-                    self.#currentOptGroup = 0;
+                    this.#currentOptGroup = 0;
                     optGroupSearchSelected.remove();
-                    this.parentNode.appendChild(self.#createSearchOptGroupHint());
+                    (event.target as HTMLInputElement).parentNode.appendChild(this.#createSearchOptGroupHint());
                 }
-                if (self.animation) {
-                    self.#triggerSearchContainerAnimationForOptgroupSelected();
+                if (this.animation) {
+                    this.#triggerSearchContainerAnimationForOptgroupSelected();
                 }
             }
-            if (event.key === 'Enter' && !enterAlreadyPressed && this.value && this.value !== "") {
+            if (event.key === 'Enter' && !enterAlreadyPressed && (event.target as HTMLInputElement).value && (event.target as HTMLInputElement).value !== "") {
                 const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
-                if (liElements && liElements.length !== 1 && self.animation) {
-                    self.#triggerSearchContainerAnimationForWrongInput();
+                if (liElements && liElements.length !== 1 && this.animation) {
+                    this.#triggerSearchContainerAnimationForWrongInput();
                     console.error("To many possible <option> groups.... Please restrict further by tipping more in search input...");
                 }
                 if (liElements && liElements.length === 1) {
@@ -490,17 +495,20 @@ export class BetterNiceSelect implements IDefault {
                 }
             }
             if (event.key === "Escape") {
-                self.#closeOverlay();
+                this.#closeOverlay();
             }
         }
 
-        const self = this;
         const overlayElement = document.createElement("div");
         overlayElement.classList.add(...Constants.CLASSES.overlayContainer);
 
         const divWrapper = document.createElement("div");
         divWrapper.classList.add(...Constants.CLASSES.overlayContainerWrapper);
-        divWrapper.addEventListener("click", hideOverlayOnClick);
+        divWrapper.addEventListener("click", (event: MouseEvent) => {
+            if (event.target == divWrapper) {
+                this.#closeOverlay();
+            }
+        });
 
         const search = document.createElement("div");
         search.classList.add(...Constants.CLASSES.searchContainer);
@@ -508,40 +516,40 @@ export class BetterNiceSelect implements IDefault {
         searchInputWrapper.classList.add(...Constants.CLASSES.searchInputWrapper);
         const searchIcon = document.createElement("span");
         searchIcon.classList.add(...Constants.CLASSES.searchIcon);
-        if (typeof self.icons.search === 'string') {
-            searchIcon.insertAdjacentHTML("beforeend", self.icons.search);
+        if (typeof this.icons.search === 'string') {
+            searchIcon.insertAdjacentHTML("beforeend", this.icons.search);
         } else {
-            searchIcon.insertAdjacentElement("beforeend", self.icons.search);
+            searchIcon.insertAdjacentElement("beforeend", this.icons.search);
         }
         const searchInput = document.createElement("input");
-        searchInput.setAttribute("placeholder", LOCALISATION[self.locale].formatSearch());
+        searchInput.setAttribute("placeholder", LOCALISATION[this.locale].formatSearch());
         searchInputWrapper.appendChild(searchIcon);
         searchInputWrapper.appendChild(searchInput);
         const searchHintInput = document.createElement("input");
         searchHintInput.classList.add(...Constants.CLASSES.searchHintInput);
         searchInputWrapper.appendChild(searchHintInput);
-        if (self.tags) {
+        if (this.tags) {
             const tagIcon = document.createElement("span");
             tagIcon.classList.add(...Constants.CLASSES.tagIcon);
-            if (typeof self.icons.tag === 'string') {
-                tagIcon.insertAdjacentHTML("beforeend", self.icons.tag);
+            if (typeof this.icons.tag === 'string') {
+                tagIcon.insertAdjacentHTML("beforeend", this.icons.tag);
             } else {
-                tagIcon.insertAdjacentElement("beforeend", self.icons.tag);
+                tagIcon.insertAdjacentElement("beforeend", this.icons.tag);
             }
             const tooltip = document.createElement("span");
             tooltip.classList.add("tooltip-own");
             tagIcon.appendChild(tooltip);
-            const index = self.tokenSeparators.indexOf(" ");
-            const copySeparators = self.tokenSeparators.slice();
+            const index = this.tokenSeparators.indexOf(" ");
+            const copySeparators = this.tokenSeparators.slice();
             if (index > -1) {
                 copySeparators.splice(index, 1);
                 copySeparators.push("Spacebar");
             }
-            tooltip.append(...Utils.htmlToElements(`${LOCALISATION[self.locale].formatHelpForTagging()}<br/>${copySeparators.join("<br/>")}`));
+            tooltip.append(...Utils.htmlToElements(`${LOCALISATION[this.locale].formatHelpForTagging()}<br/>${copySeparators.join("<br/>")}`));
             searchInputWrapper.appendChild(tagIcon);
         }
-        if (self.#searchData.possibleOptGroupLabels.length !== 0) {
-            searchInputWrapper.appendChild(self.#createSearchOptGroupHint());
+        if (this.#searchData.possibleOptGroupLabels.length !== 0) {
+            searchInputWrapper.appendChild(this.#createSearchOptGroupHint());
         }
         search.appendChild(searchInputWrapper);
         const focusHr = document.createElement("span");
@@ -558,7 +566,7 @@ export class BetterNiceSelect implements IDefault {
         const loadingAnimation = document.createElement("div");
         loadingAnimation.classList.add("loading");
         const loadingText = document.createElement("span");
-        loadingText.innerText = LOCALISATION[self.locale].formatLoadingMessage();
+        loadingText.innerText = LOCALISATION[this.locale].formatLoadingMessage();
         loadingAnimationWrapper.appendChild(loadingText);
         loadingAnimationWrapper.appendChild(loadingAnimation);
         search.appendChild(loadingAnimationWrapper);
@@ -567,7 +575,7 @@ export class BetterNiceSelect implements IDefault {
         document.querySelector("body").appendChild(overlayElement);
         searchInput.addEventListener("input", Utils.debounce(function () {
             filterOnSearchInput(searchInput.value.trim(), searchInput, searchHintInput, loadingAnimationWrapper);
-        }, self.inputDelay));
+        }, this.inputDelay));
         searchInput.addEventListener('keydown', keyboardInteraction);
         searchInput.addEventListener("focusin", function () {
             document.querySelector('.better-nice-select-overlay .search-container .focus-border').classList.add("active");
@@ -829,8 +837,8 @@ export class BetterNiceSelect implements IDefault {
             });
             if (!this.multiple) {
                 const deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
-                for (let i = 0; i < deleteLiElements.length; i++) {
-                    deleteLiElements[i].remove();
+                for (const deleteLiElement of deleteLiElements) {
+                    deleteLiElement.remove();
                 }
                 const oldSelectedOption = selectField.querySelector('option[selected]');
                 if (oldSelectedOption) {
@@ -888,7 +896,11 @@ export class BetterNiceSelect implements IDefault {
             return;
         }
         if (this.customSearch) {
-            args.length > 0 ? await this.#filterRemoteSearchData(args[0], args[1] ? args[1] : "") : await this.#filterRemoteSearchData("", "");
+            if (args.length > 0) {
+                await this.#filterRemoteSearchData(args[0], args[1] ? args[1] : "");
+            } else {
+                await this.#filterRemoteSearchData("", "");
+            }
         }
         for (const searchoption of this.#searchData.items) {
             const afterAdd = new CustomEvent("inserted.better-nice-select", {
