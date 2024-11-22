@@ -2,65 +2,58 @@ import '../scss/better-nice-select.scss';
 import Constants from "./constants/index";
 import Data from './utils/data';
 import Utils from "./utils/index";
-import { DefaultType, IconType, Localisation } from "./constants/index";
+import { IDefault, IIcon, Localisation, ISearchItem } from "./constants/index";
 
 /**
  * Needed to set globally options for multiple creation of BetterNiceSelect
  */
-export const DEFAULTS: DefaultType = Object.create(Constants.DEFAULT);
+export const DEFAULTS: IDefault = Object.create(Constants.DEFAULT);
 
 export const LOCALISATION: Localisation = Object.create(Constants.LOCALISATION);
-
-type SearchItem = {
-    id: string;
-    text: string;
-    label?: string;
-    disabled?: boolean;
-}
 
 /**
  * Creates, initialize and injects a BetterNiceSelect component into the HTML DOM and makes a given <select> element hidden
  */
-export class BetterNiceSelect implements DefaultType {
+export class BetterNiceSelect implements IDefault {
     animation: boolean;
     multiple: boolean;
     disabled: boolean;
-    customSearch: string | Function;
-    customOptiongroupLabels: string | Function;
+    customSearch: string | ((filter: string, optgroup: string) => ISearchItem[]);
+    customOptiongroupLabels: string | (() => string[]);
     tags: boolean;
-    customTagCheck: string | Function;
+    customTagCheck: string | ((input: string) => boolean);
     tokenSeparators: string[];
     locale: string;
     scrollable: { on: boolean; height: string; };
-    icons: IconType;
+    icons: IIcon;
     inputDelay: number;
     #currentLi = 0;
     #currentOptGroup = 0;
     #searchData = {
-        items: [] as SearchItem[],
+        items: [] as ISearchItem[],
         possibleOptGroupLabels: [] as string[]
     };
 
     async #triggerRemoteOptiongroupLabels() {
-        let remoteData = this['customOptiongroupLabels'] instanceof Function || typeof this['customOptiongroupLabels'] === 'function' ? this['customOptiongroupLabels']() : Utils.executeFunctionByName(this['customOptiongroupLabels'], window);
+        const remoteData = this['customOptiongroupLabels'] instanceof Function || typeof this['customOptiongroupLabels'] === 'function' ? this['customOptiongroupLabels']() : Utils.executeFunctionByName(this['customOptiongroupLabels'], window);
         await Promise.resolve(remoteData).then(data => {
             this.#searchData.possibleOptGroupLabels = data;
         })
     }
 
     async #filterRemoteSearchData(filter: string, optgroup: string) {
-        let remoteData = this['customSearch'] instanceof Function || typeof this['customSearch'] === 'function' ? this['customSearch'](filter, optgroup) : Utils.executeFunctionByName(this['customSearch'], window, filter, optgroup);
+        const remoteData = this['customSearch'] instanceof Function || typeof this['customSearch'] === 'function' ? this['customSearch'](filter, optgroup) : Utils.executeFunctionByName(this['customSearch'], window, filter, optgroup);
         await Promise.resolve(remoteData).then(data => {
             this.#searchData.items = data;
         });
     }
 
     #refreshSearchListItems(selectField: HTMLSelectElement) {
-        let searchList = document.querySelector(".better-nice-select-overlay .search-container ul");
+        const searchList = document.querySelector(".better-nice-select-overlay .search-container ul");
         if (searchList) {
             searchList.innerHTML = "";
         }
-        for (let searchOption of this.#searchData.items) {
+        for (const searchOption of this.#searchData.items) {
             const afterAdd = new CustomEvent("inserted.better-nice-select", {
                 detail: {
                     key: searchOption.id,
@@ -68,28 +61,28 @@ export class BetterNiceSelect implements DefaultType {
                 }
             });
 
-            let li = document.createElement("li");
+            const li = document.createElement("li");
             li.classList.add(...Constants.CLASSES.searchListItem);
-            let text = document.createElement("span");
+            const text = document.createElement("span");
             text.classList.add(...Constants.CLASSES.searchListItemText);
             text.innerHTML = searchOption.text;
             li.appendChild(text);
             li.tabIndex = -1;
             li.setAttribute("data-id", searchOption.id);
             if (searchOption.label) {
-                let badge = document.createElement("span");
+                const badge = document.createElement("span");
                 badge.classList.add(...Constants.CLASSES.searchListItemBadge);
                 badge.appendChild(Utils.htmlToElement(`<span class="badge">${searchOption.label}</span>`));
                 li.appendChild(badge);
             }
-            let self = this;
+            const self = this;
             li.addEventListener('click', function () {
                 if (!self.multiple) {
-                    let deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
+                    const deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
                     for (let i = 0; i < deleteLiElements.length; i++) {
                         deleteLiElements[i].remove();
                     }
-                    let oldSelectedOption = selectField.querySelector('option[selected]');
+                    const oldSelectedOption = selectField.querySelector('option[selected]');
                     if (oldSelectedOption) {
                         oldSelectedOption.removeAttribute("selected");
                     }
@@ -111,7 +104,7 @@ export class BetterNiceSelect implements DefaultType {
                     // already selected. nothing to do...
                     return;
                 }
-                let deleteButton = self.#createDeleteButton(searchOption.id, searchOption.text, searchOption.label ? searchOption.label : undefined, searchOption.disabled ? searchOption.disabled : false, selectField);
+                const deleteButton = self.#createDeleteButton(searchOption.id, searchOption.text, searchOption.label ? searchOption.label : undefined, searchOption.disabled ? searchOption.disabled : false, selectField);
                 if (searchOption.label) {
                     let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${searchOption.label}]`);
                     if (!selectedHeader) {
@@ -128,7 +121,7 @@ export class BetterNiceSelect implements DefaultType {
             });
             li.addEventListener('keydown', function (event) {
                 event.preventDefault();
-                let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
+                const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
                 if (event.key === "ArrowDown") {
                     if (self.#currentLi + 1 >= liElements.length) {
                         self.#currentLi = 0;
@@ -160,8 +153,8 @@ export class BetterNiceSelect implements DefaultType {
                 }
             });
             li.addEventListener("focusin", function () {
-                let input = document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement;
-                let inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint") as HTMLInputElement;
+                const input = document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement;
+                const inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint") as HTMLInputElement;
                 input.value = searchOption.text;
                 inputHint.value = searchOption.text;
             });
@@ -178,22 +171,22 @@ export class BetterNiceSelect implements DefaultType {
                 value: optValue
             }
         });
-        let liElement = document.createElement("li");
+        const liElement = document.createElement("li");
         liElement.classList.add(...Constants.CLASSES.deleteItem);
 
-        let optValueElement = document.createElement("div");
+        const optValueElement = document.createElement("div");
         optValueElement.classList.add(...Constants.CLASSES.deleteButtonOptionText);
         optValueElement.innerText = optValue;
         liElement.appendChild(optValueElement);
 
-        let button = document.createElement("button");
+        const button = document.createElement("button");
         button.classList.add(...Constants.CLASSES.deleteButton);
         button.setAttribute("type", "button");
         button.setAttribute("data-id", optKey);
         if (disabled || this.disabled) {
             button.setAttribute("disabled", 'disabled');
         }
-        let icon = document.createElement("span");
+        const icon = document.createElement("span");
         if (typeof this.icons.delete === 'string') {
             icon.insertAdjacentHTML("beforeend", this.icons.delete);
         } else {
@@ -202,7 +195,7 @@ export class BetterNiceSelect implements DefaultType {
         button.appendChild(icon);
         liElement.appendChild(button);
 
-        let self = this;
+        const self = this;
         button.addEventListener("click", function () {
             selectField.querySelector(`option[value='${this.getAttribute("data-id")}']`).removeAttribute("selected");
             if (this.parentElement.previousElementSibling && this.parentElement.previousElementSibling.tagName.toUpperCase() === "H5" && (this.parentElement.nextElementSibling && this.parentElement.nextElementSibling.tagName.toUpperCase() === "H5" || !this.parentElement.nextElementSibling)) {
@@ -257,12 +250,12 @@ export class BetterNiceSelect implements DefaultType {
     }
 
     #createSearchOptGroupHint(): HTMLDivElement {
-        let optgroupHint = document.createElement("div");
+        const optgroupHint = document.createElement("div");
         optgroupHint.classList.add(...Constants.CLASSES.searchOptGroupHint);
-        let shiftIcon = document.createElement("div");
+        const shiftIcon = document.createElement("div");
         shiftIcon.classList.add("icon");
         shiftIcon.innerHTML = "&#8679;";
-        let tabIcon = document.createElement("div");
+        const tabIcon = document.createElement("div");
         tabIcon.classList.add("icon");
         tabIcon.innerText = "Tab";
         optgroupHint.appendChild(shiftIcon);
@@ -271,7 +264,7 @@ export class BetterNiceSelect implements DefaultType {
     }
 
     #triggerSearchContainerAnimationForOptgroupSelected() {
-        let searchContainer = document.querySelector(".better-nice-select-overlay .search-container") as HTMLElement;
+        const searchContainer = document.querySelector(".better-nice-select-overlay .search-container") as HTMLElement;
         if (!searchContainer) {
             return;
         }
@@ -286,7 +279,7 @@ export class BetterNiceSelect implements DefaultType {
     }
 
     #triggerSearchContainerAnimationForWrongInput() {
-        let searchContainer = document.querySelector(".better-nice-select-overlay .search-container") as HTMLElement;
+        const searchContainer = document.querySelector(".better-nice-select-overlay .search-container") as HTMLElement;
         if (!searchContainer) {
             return;
         }
@@ -301,14 +294,14 @@ export class BetterNiceSelect implements DefaultType {
     }
 
     #createOverlay(selectField: HTMLSelectElement) {
-        let hideOverlayOnClick = function (event: MouseEvent) {
-            let target = (event && event.target);
+        const hideOverlayOnClick = function (event: MouseEvent) {
+            const target = (event && event.target);
             if (target == this) {
                 self.#closeOverlay();
             }
         }
 
-        let filterOnSearchInput = async function (filter: string, searchInput: HTMLInputElement, searchHint: HTMLInputElement, animationWrapper: HTMLDivElement) {
+        const filterOnSearchInput = async function (filter: string, searchInput: HTMLInputElement, searchHint: HTMLInputElement, animationWrapper: HTMLDivElement) {
             document.querySelector(".better-nice-select-overlay .search-container ul").classList.remove("active");
             animationWrapper.classList.add("active");
             searchHint.value = "";
@@ -317,8 +310,8 @@ export class BetterNiceSelect implements DefaultType {
                 document.querySelector(".better-nice-select-overlay .search-container ul").innerHTML = "";
                 return;
             }
-            let selectedOptgroupElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
-            let founded: SearchItem;
+            const selectedOptgroupElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
+            let founded: ISearchItem;
             if (self.customSearch !== undefined) {
                 await self.#filterRemoteSearchData(filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null);
                 // it could be that search was already emptied again because getting data takes to long so we can early return
@@ -329,7 +322,7 @@ export class BetterNiceSelect implements DefaultType {
                 founded = self.#searchData.items.find(item => item.text.toLowerCase().startsWith(filter.toLowerCase()));
             } else {
                 self.#refreshSearchListItems(selectField);
-                let liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
+                const liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
                 for (let i = 0; i < liNodes.length; i++) {
                     if (selectedOptgroupElement && liNodes[i].querySelector(".badge").textContent !== selectedOptgroupElement.getAttribute("data-optgroup")) {
                         liNodes[i].classList.add("hidden");
@@ -352,9 +345,9 @@ export class BetterNiceSelect implements DefaultType {
             document.querySelector(".better-nice-select-overlay .search-container ul").classList.add("active");
         }
 
-        let keyboardInteraction = async function (event: KeyboardEvent) {
+        const keyboardInteraction = async function (event: KeyboardEvent) {
 
-            let allowTagsInputInteraction = async function (keyValue: string) {
+            const allowTagsInputInteraction = async function (keyValue: string) {
 
                 const afterAdd = new CustomEvent("inserted.better-nice-select", {
                     detail: {
@@ -363,7 +356,7 @@ export class BetterNiceSelect implements DefaultType {
                     }
                 });
 
-                let checkTagBeforeCreation = function () {
+                const checkTagBeforeCreation = function () {
                     if (self['customTagCheck'] instanceof Function || typeof self['customTagCheck'] === 'function') {
                         return self['customTagCheck'](keyValue);
                     }
@@ -375,7 +368,7 @@ export class BetterNiceSelect implements DefaultType {
                 if (self.tokenSeparators.includes(event.key)) {
                     enterAlreadyPressed = true;
                     document.querySelector(".better-nice-select-overlay .search-container ul").classList.remove("active");
-                    let animationWrapper = document.querySelector(".better-nice-select-overlay .search-container .loading-wrapper");
+                    const animationWrapper = document.querySelector(".better-nice-select-overlay .search-container .loading-wrapper");
                     animationWrapper.firstChild.textContent = LOCALISATION[self.locale].formatCheckingMessage();
                     animationWrapper.classList.add("active");
                     await Promise.resolve(checkTagBeforeCreation()).then(value => {
@@ -386,7 +379,7 @@ export class BetterNiceSelect implements DefaultType {
                         }
                         let optgroup;
                         if (self.#searchData.possibleOptGroupLabels.length !== 0) {
-                            let optgroupSelectedElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
+                            const optgroupSelectedElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
                             if (!optgroupSelectedElement) {
                                 self.#triggerSearchContainerAnimationForWrongInput();
                                 console.error(`Can not create option with value '${keyValue}' because you need to select an optiongroup first...`);
@@ -410,7 +403,7 @@ export class BetterNiceSelect implements DefaultType {
                         }
                         option.setAttribute("selected", "selected");
                         if (!selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${keyValue}']`)) {
-                            let newDeleteButton = self.#createDeleteButton(keyValue, keyValue, optgroup ? optgroup : undefined, false, selectField);
+                            const newDeleteButton = self.#createDeleteButton(keyValue, keyValue, optgroup ? optgroup : undefined, false, selectField);
                             if (optgroup) {
                                 let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${optgroup}]`);
                                 if (!selectedHeader) {
@@ -438,7 +431,7 @@ export class BetterNiceSelect implements DefaultType {
             }
             if ((event.key === "Tab" && !event.shiftKey) || event.key === "ArrowDown") {
                 event.preventDefault();
-                let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
+                const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
                 if (liElements.length > 0) {
                     liElements.forEach(element => element.tabIndex = -1);
                     liElements[0].tabIndex = 0;
@@ -447,13 +440,13 @@ export class BetterNiceSelect implements DefaultType {
                 }
             }
             if (event.key === "ArrowRight" && (event.target as HTMLInputElement).selectionStart === this.value.length) {
-                let inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint") as HTMLInputElement;
+                const inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint") as HTMLInputElement;
                 if (inputHint.value && inputHint.value !== "") {
                     event.preventDefault();
                     this.value = inputHint.value;
-                    let liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
+                    const liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
                     for (let i = 0; i < liNodes.length; i++) {
-                        let txtValue = liNodes[i].firstChild.textContent;
+                        const txtValue = liNodes[i].firstChild.textContent;
                         if (txtValue.toLowerCase().indexOf(inputHint.value.toLowerCase()) > -1) {
                             liNodes[i].classList.remove("hidden");
                         } else {
@@ -487,7 +480,7 @@ export class BetterNiceSelect implements DefaultType {
                 }
             }
             if (event.key === 'Enter' && !enterAlreadyPressed && this.value && this.value !== "") {
-                let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
+                const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)") as NodeListOf<HTMLLIElement>;
                 if (liElements && liElements.length !== 1 && self.animation) {
                     self.#triggerSearchContainerAnimationForWrongInput();
                     console.error("To many possible <option> groups.... Please restrict further by tipping more in search input...");
@@ -501,45 +494,45 @@ export class BetterNiceSelect implements DefaultType {
             }
         }
 
-        let self = this;
-        let overlayElement = document.createElement("div");
+        const self = this;
+        const overlayElement = document.createElement("div");
         overlayElement.classList.add(...Constants.CLASSES.overlayContainer);
 
-        let divWrapper = document.createElement("div");
+        const divWrapper = document.createElement("div");
         divWrapper.classList.add(...Constants.CLASSES.overlayContainerWrapper);
         divWrapper.addEventListener("click", hideOverlayOnClick);
 
-        let search = document.createElement("div");
+        const search = document.createElement("div");
         search.classList.add(...Constants.CLASSES.searchContainer);
-        let searchInputWrapper = document.createElement("div");
+        const searchInputWrapper = document.createElement("div");
         searchInputWrapper.classList.add(...Constants.CLASSES.searchInputWrapper);
-        let searchIcon = document.createElement("span");
+        const searchIcon = document.createElement("span");
         searchIcon.classList.add(...Constants.CLASSES.searchIcon);
         if (typeof self.icons.search === 'string') {
             searchIcon.insertAdjacentHTML("beforeend", self.icons.search);
         } else {
             searchIcon.insertAdjacentElement("beforeend", self.icons.search);
         }
-        let searchInput = document.createElement("input");
+        const searchInput = document.createElement("input");
         searchInput.setAttribute("placeholder", LOCALISATION[self.locale].formatSearch());
         searchInputWrapper.appendChild(searchIcon);
         searchInputWrapper.appendChild(searchInput);
-        let searchHintInput = document.createElement("input");
+        const searchHintInput = document.createElement("input");
         searchHintInput.classList.add(...Constants.CLASSES.searchHintInput);
         searchInputWrapper.appendChild(searchHintInput);
         if (self.tags) {
-            let tagIcon = document.createElement("span");
+            const tagIcon = document.createElement("span");
             tagIcon.classList.add(...Constants.CLASSES.tagIcon);
             if (typeof self.icons.tag === 'string') {
                 tagIcon.insertAdjacentHTML("beforeend", self.icons.tag);
             } else {
                 tagIcon.insertAdjacentElement("beforeend", self.icons.tag);
             }
-            let tooltip = document.createElement("span");
+            const tooltip = document.createElement("span");
             tooltip.classList.add("tooltip-own");
             tagIcon.appendChild(tooltip);
-            let index = self.tokenSeparators.indexOf(" ");
-            let copySeparators = self.tokenSeparators.slice();
+            const index = self.tokenSeparators.indexOf(" ");
+            const copySeparators = self.tokenSeparators.slice();
             if (index > -1) {
                 copySeparators.splice(index, 1);
                 copySeparators.push("Spacebar");
@@ -551,20 +544,20 @@ export class BetterNiceSelect implements DefaultType {
             searchInputWrapper.appendChild(self.#createSearchOptGroupHint());
         }
         search.appendChild(searchInputWrapper);
-        let focusHr = document.createElement("span");
+        const focusHr = document.createElement("span");
         focusHr.classList.add(...Constants.CLASSES.searchHrFocus);
         search.appendChild(focusHr);
-        let hr = document.createElement("span");
+        const hr = document.createElement("span");
         hr.classList.add(...Constants.CLASSES.searchHr);
         search.appendChild(hr);
-        let searchList = document.createElement("ul");
+        const searchList = document.createElement("ul");
         searchList.classList.add(...Constants.CLASSES.searchList);
         search.appendChild(searchList);
-        let loadingAnimationWrapper = document.createElement("div");
+        const loadingAnimationWrapper = document.createElement("div");
         loadingAnimationWrapper.classList.add("loading-wrapper");
-        let loadingAnimation = document.createElement("div");
+        const loadingAnimation = document.createElement("div");
         loadingAnimation.classList.add("loading");
-        let loadingText = document.createElement("span");
+        const loadingText = document.createElement("span");
         loadingText.innerText = LOCALISATION[self.locale].formatLoadingMessage();
         loadingAnimationWrapper.appendChild(loadingText);
         loadingAnimationWrapper.appendChild(loadingAnimation);
@@ -589,19 +582,19 @@ export class BetterNiceSelect implements DefaultType {
      * @param selector select element to be styled and initialized as BetterNiceSelect component
      * @param options optional attributes how to style and initialize the BetterNiceSelect component
      */
-    constructor(selector: string | HTMLSelectElement, options: DefaultType) {
+    constructor(selector: string | HTMLSelectElement, options: IDefault) {
 
         function initDeleteField(instance: BetterNiceSelect, selectField: HTMLSelectElement): HTMLUListElement {
-            let optGroupsAvailable = function () {
-                for (let optGroup of optGroups) {
-                    let headerElement = document.createElement("h5");
+            const optGroupsAvailable = function () {
+                for (const optGroup of optGroups) {
+                    const headerElement = document.createElement("h5");
                     headerElement.innerHTML = optGroup.label;
                     headerElement.setAttribute("data-optgroup", optGroup.label);
                     ulElement.appendChild(headerElement);
                     if (instance.customOptiongroupLabels === undefined) {
                         instance.#searchData.possibleOptGroupLabels.push(optGroup.label);
                     }
-                    for (let optionElement of Array.from(optGroup.children) as HTMLOptionElement[]) {
+                    for (const optionElement of Array.from(optGroup.children) as HTMLOptionElement[]) {
                         if (optionElement.selected) {
                             ulElement.appendChild(instance.#createDeleteButton(optionElement.value, optionElement.innerText, optGroup.label, optionElement.disabled, selectField));
                         }
@@ -617,8 +610,8 @@ export class BetterNiceSelect implements DefaultType {
                 }
             }
 
-            let optGroupsNotAvailable = function () {
-                for (let optionElement of Array.from(selectField.children) as HTMLOptionElement[]) {
+            const optGroupsNotAvailable = function () {
+                for (const optionElement of Array.from(selectField.children) as HTMLOptionElement[]) {
                     if (optionElement.selected) {
                         ulElement.appendChild(instance.#createDeleteButton(optionElement.value, optionElement.innerText, undefined, optionElement.disabled, selectField));
                     }
@@ -632,13 +625,13 @@ export class BetterNiceSelect implements DefaultType {
                 }
             }
 
-            let ulElement = document.createElement("ul");
+            const ulElement = document.createElement("ul");
             ulElement.classList.add(...Constants.CLASSES.deleteContainerList);
             if (instance.scrollable.on) {
                 ulElement.classList.add("scrollable");
                 ulElement.style.height = instance.scrollable.height;
             }
-            let optGroups = selectField.getElementsByTagName("optgroup");
+            const optGroups = selectField.getElementsByTagName("optgroup");
             if (optGroups.length !== 0) {
                 optGroupsAvailable();
             } else {
@@ -651,9 +644,9 @@ export class BetterNiceSelect implements DefaultType {
         }
 
         function initAddField(instance: BetterNiceSelect, selectField: HTMLSelectElement): HTMLDivElement {
-            let divElement = document.createElement("div");
+            const divElement = document.createElement("div");
             divElement.classList.add(...Constants.CLASSES.addContainer);
-            let button = document.createElement("button");
+            const button = document.createElement("button");
             button.classList.add(...Constants.CLASSES.addButton);
             button.setAttribute("type", "button");
             if (instance.disabled) {
@@ -668,11 +661,11 @@ export class BetterNiceSelect implements DefaultType {
                 instance.#createOverlay(selectField);
                 instance.#openOverlay();
 
-                let input = document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement;
+                const input = document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement;
                 input.value = '';
                 input.focus();
             });
-            let icon = document.createElement("span");
+            const icon = document.createElement("span");
             if (typeof instance.icons.add === 'string') {
                 icon.insertAdjacentHTML("beforeend", instance.icons.add);
             } else {
@@ -683,12 +676,12 @@ export class BetterNiceSelect implements DefaultType {
             return divElement;
         }
 
-        function syncParams(selectField: HTMLSelectElement): DefaultType {
+        function syncParams(selectField: HTMLSelectElement): IDefault {
             // sync default
-            let _defaultNiceSelect = Object.create(DEFAULTS);
+            const _defaultNiceSelect = Object.create(DEFAULTS);
             // sync via Javascript
             if (options) {
-                for (let [key, value] of Object.entries(options)) {
+                for (const [key, value] of Object.entries(options)) {
                     _defaultNiceSelect[key] = value;
                 }
             }
@@ -702,7 +695,7 @@ export class BetterNiceSelect implements DefaultType {
                 _defaultNiceSelect.multiple = false;
                 if (!selectField.querySelector('option[selected]')) {
                     selectField.selectedIndex = -1;
-                    for (let option of selectField.options) {
+                    for (const option of selectField.options) {
                         option.selected = false;
                     }
                 }
@@ -761,7 +754,7 @@ export class BetterNiceSelect implements DefaultType {
         }
         selectField.setAttribute("hidden", 'hidden');
 
-        let params = syncParams(selectField);
+        const params = syncParams(selectField);
         this.animation = params.animation;
         this.multiple = params.multiple;
         this.disabled = params.disabled;
@@ -776,12 +769,12 @@ export class BetterNiceSelect implements DefaultType {
         this.inputDelay = params.inputDelay;
 
 
-        let main = document.createElement("div");
+        const main = document.createElement("div");
         main.classList.add(...Constants.CLASSES.mainContainer);
 
-        let deleteList = initDeleteField(this, selectField);
-        let addContainer = initAddField(this, selectField);
-        let deleteContainer = document.createElement("div");
+        const deleteList = initDeleteField(this, selectField);
+        const addContainer = initAddField(this, selectField);
+        const deleteContainer = document.createElement("div");
         deleteContainer.classList.add(...Constants.CLASSES.deleteContainer);
         deleteContainer.appendChild(deleteList);
 
@@ -799,7 +792,7 @@ export class BetterNiceSelect implements DefaultType {
      * @returns BetterNiceSelect instance if found. Otherwise NULL
      */
     static getInstance(selector: string | HTMLSelectElement): BetterNiceSelect {
-        let element = typeof selector === 'string' ? document.querySelector(selector) as HTMLSelectElement : selector;
+        const element = typeof selector === 'string' ? document.querySelector(selector) as HTMLSelectElement : selector;
         return Data.get(element, 'better-nice-select') as BetterNiceSelect;
     }
 
@@ -809,7 +802,7 @@ export class BetterNiceSelect implements DefaultType {
      * @param config optional attributes how to style and initialize the BetterNiceSelect component, in case it wasn’t initialized
      * @returns BetterNiceSelect instance if found. Otherwise new created instance
      */
-    static getOrCreateInstance(selector: string | HTMLSelectElement, config: DefaultType): BetterNiceSelect {
+    static getOrCreateInstance(selector: string | HTMLSelectElement, config: IDefault): BetterNiceSelect {
         return this.getInstance(selector) || new this(selector, config);
     }
 
@@ -817,17 +810,17 @@ export class BetterNiceSelect implements DefaultType {
      * Select already predefined <option> elements or create dynamically new ones and select them directly
      * @param items one or more items to select
      */
-    select(...items: SearchItem[]) {
+    select(...items: ISearchItem[]) {
         if (items.length === 0) {
             console.error("No given option to select something for method 'select'. Please read the manual how to use the function...");
             return;
         }
-        let selectField = Data.findElement('better-nice-select', this) as HTMLSelectElement;
+        const selectField = Data.findElement('better-nice-select', this) as HTMLSelectElement;
         if (!selectField) {
             console.error("Could not find <select> object during 'select'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
-        for (let item of items) {
+        for (const item of items) {
             const afterAdd = new CustomEvent("inserted.better-nice-select", {
                 detail: {
                     key: item.id,
@@ -835,11 +828,11 @@ export class BetterNiceSelect implements DefaultType {
                 }
             });
             if (!this.multiple) {
-                let deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
+                const deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
                 for (let i = 0; i < deleteLiElements.length; i++) {
                     deleteLiElements[i].remove();
                 }
-                let oldSelectedOption = selectField.querySelector('option[selected]');
+                const oldSelectedOption = selectField.querySelector('option[selected]');
                 if (oldSelectedOption) {
                     oldSelectedOption.removeAttribute("selected");
                 }
@@ -859,7 +852,7 @@ export class BetterNiceSelect implements DefaultType {
             if (selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${item.id}']`)) {
                 continue;
             }
-            let deleteButton = this.#createDeleteButton(item.id, item.text, item.label ? item.label : undefined, item.disabled ? item.disabled : false, selectField);
+            const deleteButton = this.#createDeleteButton(item.id, item.text, item.label ? item.label : undefined, item.disabled ? item.disabled : false, selectField);
             if (item.label) {
                 let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${item.label}]`);
                 if (!selectedHeader) {
@@ -889,7 +882,7 @@ export class BetterNiceSelect implements DefaultType {
             console.error("Method 'selectAll' used wrong. Please read user manual...");
             return;
         }
-        let selectField = Data.findElement('better-nice-select', this) as HTMLSelectElement;
+        const selectField = Data.findElement('better-nice-select', this) as HTMLSelectElement;
         if (!selectField) {
             console.error("Could not find <select> object during 'selectAll'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
@@ -897,7 +890,7 @@ export class BetterNiceSelect implements DefaultType {
         if (this.customSearch) {
             args.length > 0 ? await this.#filterRemoteSearchData(args[0], args[1] ? args[1] : "") : await this.#filterRemoteSearchData("", "");
         }
-        for (let searchoption of this.#searchData.items) {
+        for (const searchoption of this.#searchData.items) {
             const afterAdd = new CustomEvent("inserted.better-nice-select", {
                 detail: {
                     key: searchoption.id,
@@ -919,7 +912,7 @@ export class BetterNiceSelect implements DefaultType {
             if (selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${searchoption.id}']`)) {
                 continue;
             }
-            let deleteButton = this.#createDeleteButton(searchoption.id, searchoption.text, searchoption.label ? searchoption.label : undefined, searchoption.disabled ? searchoption.disabled : false, selectField);
+            const deleteButton = this.#createDeleteButton(searchoption.id, searchoption.text, searchoption.label ? searchoption.label : undefined, searchoption.disabled ? searchoption.disabled : false, selectField);
             if (searchoption.label) {
                 let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${searchoption.label}]`);
                 if (!selectedHeader) {
@@ -945,13 +938,13 @@ export class BetterNiceSelect implements DefaultType {
             console.error("No given option to deselect something for method 'deselect'. Please read the manual how to use the function...");
             return;
         }
-        let selectField = Data.findElement('better-nice-select', this);
+        const selectField = Data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'deselect'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
-        for (let id of ids) {
-            let foundedButton = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list li button[data-id='${id}']`) as HTMLButtonElement;
+        for (const id of ids) {
+            const foundedButton = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list li button[data-id='${id}']`) as HTMLButtonElement;
             if (!foundedButton) {
                 console.error(`Could not deselect given option "${id}", because could not trigger click event for respective delete button...`);
                 continue;
@@ -964,13 +957,13 @@ export class BetterNiceSelect implements DefaultType {
      * Deselects all already added <option> elements
      */
     deselectAll() {
-        let selectField = Data.findElement('better-nice-select', this);
+        const selectField = Data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'deselectAll'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
-        let foundedButtons = selectField.nextElementSibling.querySelectorAll(".better-nice-select .delete-list li button") as NodeListOf<HTMLButtonElement>;
-        for (let foundedButton of foundedButtons) {
+        const foundedButtons = selectField.nextElementSibling.querySelectorAll(".better-nice-select .delete-list li button") as NodeListOf<HTMLButtonElement>;
+        for (const foundedButton of foundedButtons) {
             foundedButton.click();
         }
     }
@@ -979,7 +972,7 @@ export class BetterNiceSelect implements DefaultType {
      * Destroys the initialized BetterNiceSelect instance and make the <select> element visible again
      */
     destroy() {
-        let selectField = Data.findElement('better-nice-select', this);
+        const selectField = Data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'destroy'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
@@ -993,7 +986,7 @@ export class BetterNiceSelect implements DefaultType {
      * Shows a already initialized BetterNiceSelect instance after it got already called with hide() method
      */
     show() {
-        let selectField = Data.findElement('better-nice-select', this);
+        const selectField = Data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'show'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
@@ -1010,7 +1003,7 @@ export class BetterNiceSelect implements DefaultType {
      * Hides a already initialized BetterNiceSelect instance, if not already hidden
      */
     hide() {
-        let selectField = Data.findElement('better-nice-select', this);
+        const selectField = Data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'hide'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
@@ -1028,14 +1021,14 @@ export class BetterNiceSelect implements DefaultType {
      * @param args args[0] = searchInput
      */
     open(...args: string[]) {
-        let selectField = Data.findElement('better-nice-select', this) as HTMLSelectElement;
+        const selectField = Data.findElement('better-nice-select', this) as HTMLSelectElement;
         if (!selectField) {
             console.error("Could not find <select> object during 'open'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
         this.#createOverlay(selectField);
         this.#openOverlay();
-        let input = document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement;
+        const input = document.querySelector(".better-nice-select-overlay .search-container input") as HTMLInputElement;
         if (args.length > 0) {
             input.value = args[0];
             input.dispatchEvent(new Event('input'));

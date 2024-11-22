@@ -94,6 +94,9 @@ const EN = {
         return "Checking";
     }
 };
+/**
+ * JSON object with CSS classes and string[] of classes to set on specific HTML-Elements
+ */
 const CLASSES = {
     mainContainer: ['better-nice-select'],
     deleteContainer: ['delete-container'],
@@ -120,6 +123,9 @@ const CLASSES = {
     searchListItemText: ["search-list-item-text"],
     searchListItemBadge: ["search-list-item-badge"]
 };
+/**
+ * Default values of a BetterNiceSelect component
+ */
 const DEFAULT = {
     animation: true,
     multiple: false,
@@ -142,6 +148,9 @@ const DEFAULT = {
     },
     inputDelay: 400
 };
+/**
+ * Default BetterNiceSelect object and helper objects to work with
+ */
 const exportedObject = {
     CLASSES: CLASSES,
     LOCALISATION: {
@@ -172,7 +181,7 @@ const elementMap = new Map();
         instanceMap.set(key, instance);
     },
     findElement(key, instance) {
-        for (let instanceMap of elementMap) {
+        for (const instanceMap of elementMap) {
             if (instanceMap[1].has(key) && instanceMap[1].get(key) === instance) {
                 return instanceMap[0];
             }
@@ -199,6 +208,7 @@ const elementMap = new Map();
 });
 
 ;// ./src/ts/utils/index.ts
+/* eslint-disable */
 /* harmony default export */ const utils = ({
     /**
      * Create HTML single Element from string input
@@ -206,7 +216,7 @@ const elementMap = new Map();
      * @return {Element}
      */
     htmlToElement(html) {
-        var template = document.createElement('template');
+        let template = document.createElement('template');
         html = html.trim();
         template.innerHTML = html;
         return template.content.firstChild;
@@ -217,7 +227,7 @@ const elementMap = new Map();
      * @return {NodeList}
      */
     htmlToElements(html) {
-        var template = document.createElement('template');
+        let template = document.createElement('template');
         html = html.trim();
         template.innerHTML = html;
         return template.content.childNodes;
@@ -301,16 +311,16 @@ class BetterNiceSelect {
             possibleOptGroupLabels: []
         });
         function initDeleteField(instance, selectField) {
-            let optGroupsAvailable = function () {
-                for (let optGroup of optGroups) {
-                    let headerElement = document.createElement("h5");
+            const optGroupsAvailable = function () {
+                for (const optGroup of optGroups) {
+                    const headerElement = document.createElement("h5");
                     headerElement.innerHTML = optGroup.label;
                     headerElement.setAttribute("data-optgroup", optGroup.label);
                     ulElement.appendChild(headerElement);
                     if (instance.customOptiongroupLabels === undefined) {
                         __classPrivateFieldGet(instance, _BetterNiceSelect_searchData, "f").possibleOptGroupLabels.push(optGroup.label);
                     }
-                    for (let optionElement of Array.from(optGroup.children)) {
+                    for (const optionElement of Array.from(optGroup.children)) {
                         if (optionElement.selected) {
                             ulElement.appendChild(__classPrivateFieldGet(instance, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(instance, optionElement.value, optionElement.innerText, optGroup.label, optionElement.disabled, selectField));
                         }
@@ -325,8 +335,8 @@ class BetterNiceSelect {
                     }
                 }
             };
-            let optGroupsNotAvailable = function () {
-                for (let optionElement of Array.from(selectField.children)) {
+            const optGroupsNotAvailable = function () {
+                for (const optionElement of Array.from(selectField.children)) {
                     if (optionElement.selected) {
                         ulElement.appendChild(__classPrivateFieldGet(instance, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(instance, optionElement.value, optionElement.innerText, undefined, optionElement.disabled, selectField));
                     }
@@ -339,13 +349,13 @@ class BetterNiceSelect {
                     }
                 }
             };
-            let ulElement = document.createElement("ul");
+            const ulElement = document.createElement("ul");
             ulElement.classList.add(...constants.CLASSES.deleteContainerList);
             if (instance.scrollable.on) {
                 ulElement.classList.add("scrollable");
                 ulElement.style.height = instance.scrollable.height;
             }
-            let optGroups = selectField.getElementsByTagName("optgroup");
+            const optGroups = selectField.getElementsByTagName("optgroup");
             if (optGroups.length !== 0) {
                 optGroupsAvailable();
             }
@@ -358,9 +368,9 @@ class BetterNiceSelect {
             return ulElement;
         }
         function initAddField(instance, selectField) {
-            let divElement = document.createElement("div");
+            const divElement = document.createElement("div");
             divElement.classList.add(...constants.CLASSES.addContainer);
-            let button = document.createElement("button");
+            const button = document.createElement("button");
             button.classList.add(...constants.CLASSES.addButton);
             button.setAttribute("type", "button");
             if (instance.disabled) {
@@ -374,11 +384,11 @@ class BetterNiceSelect {
                 }
                 __classPrivateFieldGet(instance, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createOverlay).call(instance, selectField);
                 __classPrivateFieldGet(instance, _BetterNiceSelect_instances, "m", _BetterNiceSelect_openOverlay).call(instance);
-                let input = document.querySelector(".better-nice-select-overlay .search-container input");
+                const input = document.querySelector(".better-nice-select-overlay .search-container input");
                 input.value = '';
                 input.focus();
             });
-            let icon = document.createElement("span");
+            const icon = document.createElement("span");
             if (typeof instance.icons.add === 'string') {
                 icon.insertAdjacentHTML("beforeend", instance.icons.add);
             }
@@ -391,10 +401,10 @@ class BetterNiceSelect {
         }
         function syncParams(selectField) {
             // sync default
-            let _defaultNiceSelect = Object.create(DEFAULTS);
+            const _defaultNiceSelect = Object.create(DEFAULTS);
             // sync via Javascript
             if (options) {
-                for (let [key, value] of Object.entries(options)) {
+                for (const [key, value] of Object.entries(options)) {
                     _defaultNiceSelect[key] = value;
                 }
             }
@@ -409,7 +419,7 @@ class BetterNiceSelect {
                 _defaultNiceSelect.multiple = false;
                 if (!selectField.querySelector('option[selected]')) {
                     selectField.selectedIndex = -1;
-                    for (let option of selectField.options) {
+                    for (const option of selectField.options) {
                         option.selected = false;
                     }
                 }
@@ -470,7 +480,7 @@ class BetterNiceSelect {
             selectField = selector;
         }
         selectField.setAttribute("hidden", 'hidden');
-        let params = syncParams(selectField);
+        const params = syncParams(selectField);
         this.animation = params.animation;
         this.multiple = params.multiple;
         this.disabled = params.disabled;
@@ -483,11 +493,11 @@ class BetterNiceSelect {
         this.scrollable = params.scrollable;
         this.icons = params.icons;
         this.inputDelay = params.inputDelay;
-        let main = document.createElement("div");
+        const main = document.createElement("div");
         main.classList.add(...constants.CLASSES.mainContainer);
-        let deleteList = initDeleteField(this, selectField);
-        let addContainer = initAddField(this, selectField);
-        let deleteContainer = document.createElement("div");
+        const deleteList = initDeleteField(this, selectField);
+        const addContainer = initAddField(this, selectField);
+        const deleteContainer = document.createElement("div");
         deleteContainer.classList.add(...constants.CLASSES.deleteContainer);
         deleteContainer.appendChild(deleteList);
         main.appendChild(addContainer);
@@ -501,7 +511,7 @@ class BetterNiceSelect {
      * @returns BetterNiceSelect instance if found. Otherwise NULL
      */
     static getInstance(selector) {
-        let element = typeof selector === 'string' ? document.querySelector(selector) : selector;
+        const element = typeof selector === 'string' ? document.querySelector(selector) : selector;
         return data.get(element, 'better-nice-select');
     }
     /**
@@ -522,12 +532,12 @@ class BetterNiceSelect {
             console.error("No given option to select something for method 'select'. Please read the manual how to use the function...");
             return;
         }
-        let selectField = data.findElement('better-nice-select', this);
+        const selectField = data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'select'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
-        for (let item of items) {
+        for (const item of items) {
             const afterAdd = new CustomEvent("inserted.better-nice-select", {
                 detail: {
                     key: item.id,
@@ -535,11 +545,11 @@ class BetterNiceSelect {
                 }
             });
             if (!this.multiple) {
-                let deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
+                const deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
                 for (let i = 0; i < deleteLiElements.length; i++) {
                     deleteLiElements[i].remove();
                 }
-                let oldSelectedOption = selectField.querySelector('option[selected]');
+                const oldSelectedOption = selectField.querySelector('option[selected]');
                 if (oldSelectedOption) {
                     oldSelectedOption.removeAttribute("selected");
                 }
@@ -560,7 +570,7 @@ class BetterNiceSelect {
             if (selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${item.id}']`)) {
                 continue;
             }
-            let deleteButton = __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(this, item.id, item.text, item.label ? item.label : undefined, item.disabled ? item.disabled : false, selectField);
+            const deleteButton = __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(this, item.id, item.text, item.label ? item.label : undefined, item.disabled ? item.disabled : false, selectField);
             if (item.label) {
                 let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${item.label}]`);
                 if (!selectedHeader) {
@@ -591,7 +601,7 @@ class BetterNiceSelect {
                 console.error("Method 'selectAll' used wrong. Please read user manual...");
                 return;
             }
-            let selectField = data.findElement('better-nice-select', this);
+            const selectField = data.findElement('better-nice-select', this);
             if (!selectField) {
                 console.error("Could not find <select> object during 'selectAll'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
                 return;
@@ -599,7 +609,7 @@ class BetterNiceSelect {
             if (this.customSearch) {
                 args.length > 0 ? yield __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(this, args[0], args[1] ? args[1] : "") : yield __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(this, "", "");
             }
-            for (let searchoption of __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").items) {
+            for (const searchoption of __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").items) {
                 const afterAdd = new CustomEvent("inserted.better-nice-select", {
                     detail: {
                         key: searchoption.id,
@@ -622,7 +632,7 @@ class BetterNiceSelect {
                 if (selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${searchoption.id}']`)) {
                     continue;
                 }
-                let deleteButton = __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(this, searchoption.id, searchoption.text, searchoption.label ? searchoption.label : undefined, searchoption.disabled ? searchoption.disabled : false, selectField);
+                const deleteButton = __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(this, searchoption.id, searchoption.text, searchoption.label ? searchoption.label : undefined, searchoption.disabled ? searchoption.disabled : false, selectField);
                 if (searchoption.label) {
                     let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${searchoption.label}]`);
                     if (!selectedHeader) {
@@ -649,13 +659,13 @@ class BetterNiceSelect {
             console.error("No given option to deselect something for method 'deselect'. Please read the manual how to use the function...");
             return;
         }
-        let selectField = data.findElement('better-nice-select', this);
+        const selectField = data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'deselect'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
-        for (let id of ids) {
-            let foundedButton = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list li button[data-id='${id}']`);
+        for (const id of ids) {
+            const foundedButton = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list li button[data-id='${id}']`);
             if (!foundedButton) {
                 console.error(`Could not deselect given option "${id}", because could not trigger click event for respective delete button...`);
                 continue;
@@ -667,13 +677,13 @@ class BetterNiceSelect {
      * Deselects all already added <option> elements
      */
     deselectAll() {
-        let selectField = data.findElement('better-nice-select', this);
+        const selectField = data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'deselectAll'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
-        let foundedButtons = selectField.nextElementSibling.querySelectorAll(".better-nice-select .delete-list li button");
-        for (let foundedButton of foundedButtons) {
+        const foundedButtons = selectField.nextElementSibling.querySelectorAll(".better-nice-select .delete-list li button");
+        for (const foundedButton of foundedButtons) {
             foundedButton.click();
         }
     }
@@ -681,7 +691,7 @@ class BetterNiceSelect {
      * Destroys the initialized BetterNiceSelect instance and make the <select> element visible again
      */
     destroy() {
-        let selectField = data.findElement('better-nice-select', this);
+        const selectField = data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'destroy'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
@@ -694,7 +704,7 @@ class BetterNiceSelect {
      * Shows a already initialized BetterNiceSelect instance after it got already called with hide() method
      */
     show() {
-        let selectField = data.findElement('better-nice-select', this);
+        const selectField = data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'show'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
@@ -711,7 +721,7 @@ class BetterNiceSelect {
      * Hides a already initialized BetterNiceSelect instance, if not already hidden
      */
     hide() {
-        let selectField = data.findElement('better-nice-select', this);
+        const selectField = data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'hide'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
@@ -729,14 +739,14 @@ class BetterNiceSelect {
      * @param args args[0] = searchInput
      */
     open(...args) {
-        let selectField = data.findElement('better-nice-select', this);
+        const selectField = data.findElement('better-nice-select', this);
         if (!selectField) {
             console.error("Could not find <select> object during 'open'. Something is broken... Please report with a Github issue for seeking help or fix it yourself...");
             return;
         }
         __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createOverlay).call(this, selectField);
         __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_openOverlay).call(this);
-        let input = document.querySelector(".better-nice-select-overlay .search-container input");
+        const input = document.querySelector(".better-nice-select-overlay .search-container input");
         if (args.length > 0) {
             input.value = args[0];
             input.dispatchEvent(new Event('input'));
@@ -749,52 +759,52 @@ class BetterNiceSelect {
 }
 _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup = new WeakMap(), _BetterNiceSelect_searchData = new WeakMap(), _BetterNiceSelect_instances = new WeakSet(), _BetterNiceSelect_triggerRemoteOptiongroupLabels = function _BetterNiceSelect_triggerRemoteOptiongroupLabels() {
     return __awaiter(this, void 0, void 0, function* () {
-        let remoteData = this['customOptiongroupLabels'] instanceof Function || typeof this['customOptiongroupLabels'] === 'function' ? this['customOptiongroupLabels']() : utils.executeFunctionByName(this['customOptiongroupLabels'], window);
+        const remoteData = this['customOptiongroupLabels'] instanceof Function || typeof this['customOptiongroupLabels'] === 'function' ? this['customOptiongroupLabels']() : utils.executeFunctionByName(this['customOptiongroupLabels'], window);
         yield Promise.resolve(remoteData).then(data => {
             __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").possibleOptGroupLabels = data;
         });
     });
 }, _BetterNiceSelect_filterRemoteSearchData = function _BetterNiceSelect_filterRemoteSearchData(filter, optgroup) {
     return __awaiter(this, void 0, void 0, function* () {
-        let remoteData = this['customSearch'] instanceof Function || typeof this['customSearch'] === 'function' ? this['customSearch'](filter, optgroup) : utils.executeFunctionByName(this['customSearch'], window, filter, optgroup);
+        const remoteData = this['customSearch'] instanceof Function || typeof this['customSearch'] === 'function' ? this['customSearch'](filter, optgroup) : utils.executeFunctionByName(this['customSearch'], window, filter, optgroup);
         yield Promise.resolve(remoteData).then(data => {
             __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").items = data;
         });
     });
 }, _BetterNiceSelect_refreshSearchListItems = function _BetterNiceSelect_refreshSearchListItems(selectField) {
-    let searchList = document.querySelector(".better-nice-select-overlay .search-container ul");
+    const searchList = document.querySelector(".better-nice-select-overlay .search-container ul");
     if (searchList) {
         searchList.innerHTML = "";
     }
-    for (let searchOption of __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").items) {
+    for (const searchOption of __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").items) {
         const afterAdd = new CustomEvent("inserted.better-nice-select", {
             detail: {
                 key: searchOption.id,
                 value: searchOption.text
             }
         });
-        let li = document.createElement("li");
+        const li = document.createElement("li");
         li.classList.add(...constants.CLASSES.searchListItem);
-        let text = document.createElement("span");
+        const text = document.createElement("span");
         text.classList.add(...constants.CLASSES.searchListItemText);
         text.innerHTML = searchOption.text;
         li.appendChild(text);
         li.tabIndex = -1;
         li.setAttribute("data-id", searchOption.id);
         if (searchOption.label) {
-            let badge = document.createElement("span");
+            const badge = document.createElement("span");
             badge.classList.add(...constants.CLASSES.searchListItemBadge);
             badge.appendChild(utils.htmlToElement(`<span class="badge">${searchOption.label}</span>`));
             li.appendChild(badge);
         }
-        let self = this;
+        const self = this;
         li.addEventListener('click', function () {
             if (!self.multiple) {
-                let deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
+                const deleteLiElements = selectField.nextElementSibling.querySelector('.better-nice-select .delete-list').getElementsByTagName("li");
                 for (let i = 0; i < deleteLiElements.length; i++) {
                     deleteLiElements[i].remove();
                 }
-                let oldSelectedOption = selectField.querySelector('option[selected]');
+                const oldSelectedOption = selectField.querySelector('option[selected]');
                 if (oldSelectedOption) {
                     oldSelectedOption.removeAttribute("selected");
                 }
@@ -817,7 +827,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                 // already selected. nothing to do...
                 return;
             }
-            let deleteButton = __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(self, searchOption.id, searchOption.text, searchOption.label ? searchOption.label : undefined, searchOption.disabled ? searchOption.disabled : false, selectField);
+            const deleteButton = __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(self, searchOption.id, searchOption.text, searchOption.label ? searchOption.label : undefined, searchOption.disabled ? searchOption.disabled : false, selectField);
             if (searchOption.label) {
                 let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${searchOption.label}]`);
                 if (!selectedHeader) {
@@ -836,7 +846,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
         li.addEventListener('keydown', function (event) {
             var _a, _b, _c, _d;
             event.preventDefault();
-            let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)");
+            const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)");
             if (event.key === "ArrowDown") {
                 if (__classPrivateFieldGet(self, _BetterNiceSelect_currentLi, "f") + 1 >= liElements.length) {
                     __classPrivateFieldSet(self, _BetterNiceSelect_currentLi, 0, "f");
@@ -870,8 +880,8 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             }
         });
         li.addEventListener("focusin", function () {
-            let input = document.querySelector(".better-nice-select-overlay .search-container input");
-            let inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint");
+            const input = document.querySelector(".better-nice-select-overlay .search-container input");
+            const inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint");
             input.value = searchOption.text;
             inputHint.value = searchOption.text;
         });
@@ -884,20 +894,20 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             value: optValue
         }
     });
-    let liElement = document.createElement("li");
+    const liElement = document.createElement("li");
     liElement.classList.add(...constants.CLASSES.deleteItem);
-    let optValueElement = document.createElement("div");
+    const optValueElement = document.createElement("div");
     optValueElement.classList.add(...constants.CLASSES.deleteButtonOptionText);
     optValueElement.innerText = optValue;
     liElement.appendChild(optValueElement);
-    let button = document.createElement("button");
+    const button = document.createElement("button");
     button.classList.add(...constants.CLASSES.deleteButton);
     button.setAttribute("type", "button");
     button.setAttribute("data-id", optKey);
     if (disabled || this.disabled) {
         button.setAttribute("disabled", 'disabled');
     }
-    let icon = document.createElement("span");
+    const icon = document.createElement("span");
     if (typeof this.icons.delete === 'string') {
         icon.insertAdjacentHTML("beforeend", this.icons.delete);
     }
@@ -906,7 +916,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
     }
     button.appendChild(icon);
     liElement.appendChild(button);
-    let self = this;
+    const self = this;
     button.addEventListener("click", function () {
         selectField.querySelector(`option[value='${this.getAttribute("data-id")}']`).removeAttribute("selected");
         if (this.parentElement.previousElementSibling && this.parentElement.previousElementSibling.tagName.toUpperCase() === "H5" && (this.parentElement.nextElementSibling && this.parentElement.nextElementSibling.tagName.toUpperCase() === "H5" || !this.parentElement.nextElementSibling)) {
@@ -956,19 +966,19 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
         document.querySelector("body").removeChild(document.querySelector(".better-nice-select-overlay"));
     }
 }, _BetterNiceSelect_createSearchOptGroupHint = function _BetterNiceSelect_createSearchOptGroupHint() {
-    let optgroupHint = document.createElement("div");
+    const optgroupHint = document.createElement("div");
     optgroupHint.classList.add(...constants.CLASSES.searchOptGroupHint);
-    let shiftIcon = document.createElement("div");
+    const shiftIcon = document.createElement("div");
     shiftIcon.classList.add("icon");
     shiftIcon.innerHTML = "&#8679;";
-    let tabIcon = document.createElement("div");
+    const tabIcon = document.createElement("div");
     tabIcon.classList.add("icon");
     tabIcon.innerText = "Tab";
     optgroupHint.appendChild(shiftIcon);
     optgroupHint.appendChild(tabIcon);
     return optgroupHint;
 }, _BetterNiceSelect_triggerSearchContainerAnimationForOptgroupSelected = function _BetterNiceSelect_triggerSearchContainerAnimationForOptgroupSelected() {
-    let searchContainer = document.querySelector(".better-nice-select-overlay .search-container");
+    const searchContainer = document.querySelector(".better-nice-select-overlay .search-container");
     if (!searchContainer) {
         return;
     }
@@ -981,7 +991,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
     searchContainer.offsetHeight;
     searchContainer.classList.add("optgroup-selected");
 }, _BetterNiceSelect_triggerSearchContainerAnimationForWrongInput = function _BetterNiceSelect_triggerSearchContainerAnimationForWrongInput() {
-    let searchContainer = document.querySelector(".better-nice-select-overlay .search-container");
+    const searchContainer = document.querySelector(".better-nice-select-overlay .search-container");
     if (!searchContainer) {
         return;
     }
@@ -994,13 +1004,13 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
     searchContainer.offsetHeight;
     searchContainer.classList.add("to-many-options");
 }, _BetterNiceSelect_createOverlay = function _BetterNiceSelect_createOverlay(selectField) {
-    let hideOverlayOnClick = function (event) {
-        let target = (event && event.target);
+    const hideOverlayOnClick = function (event) {
+        const target = (event && event.target);
         if (target == this) {
             __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_closeOverlay).call(self);
         }
     };
-    let filterOnSearchInput = function (filter, searchInput, searchHint, animationWrapper) {
+    const filterOnSearchInput = function (filter, searchInput, searchHint, animationWrapper) {
         return __awaiter(this, void 0, void 0, function* () {
             document.querySelector(".better-nice-select-overlay .search-container ul").classList.remove("active");
             animationWrapper.classList.add("active");
@@ -1010,7 +1020,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                 document.querySelector(".better-nice-select-overlay .search-container ul").innerHTML = "";
                 return;
             }
-            let selectedOptgroupElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
+            const selectedOptgroupElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
             let founded;
             if (self.customSearch !== undefined) {
                 yield __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(self, filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null);
@@ -1023,7 +1033,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             }
             else {
                 __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_refreshSearchListItems).call(self, selectField);
-                let liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
+                const liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
                 for (let i = 0; i < liNodes.length; i++) {
                     if (selectedOptgroupElement && liNodes[i].querySelector(".badge").textContent !== selectedOptgroupElement.getAttribute("data-optgroup")) {
                         liNodes[i].classList.add("hidden");
@@ -1047,10 +1057,10 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             document.querySelector(".better-nice-select-overlay .search-container ul").classList.add("active");
         });
     };
-    let keyboardInteraction = function (event) {
+    const keyboardInteraction = function (event) {
         return __awaiter(this, void 0, void 0, function* () {
             var _a, _b;
-            let allowTagsInputInteraction = function (keyValue) {
+            const allowTagsInputInteraction = function (keyValue) {
                 return __awaiter(this, void 0, void 0, function* () {
                     const afterAdd = new CustomEvent("inserted.better-nice-select", {
                         detail: {
@@ -1058,7 +1068,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                             value: keyValue
                         }
                     });
-                    let checkTagBeforeCreation = function () {
+                    const checkTagBeforeCreation = function () {
                         if (self['customTagCheck'] instanceof Function || typeof self['customTagCheck'] === 'function') {
                             return self['customTagCheck'](keyValue);
                         }
@@ -1070,7 +1080,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                     if (self.tokenSeparators.includes(event.key)) {
                         enterAlreadyPressed = true;
                         document.querySelector(".better-nice-select-overlay .search-container ul").classList.remove("active");
-                        let animationWrapper = document.querySelector(".better-nice-select-overlay .search-container .loading-wrapper");
+                        const animationWrapper = document.querySelector(".better-nice-select-overlay .search-container .loading-wrapper");
                         animationWrapper.firstChild.textContent = LOCALISATION[self.locale].formatCheckingMessage();
                         animationWrapper.classList.add("active");
                         yield Promise.resolve(checkTagBeforeCreation()).then(value => {
@@ -1081,7 +1091,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                             }
                             let optgroup;
                             if (__classPrivateFieldGet(self, _BetterNiceSelect_searchData, "f").possibleOptGroupLabels.length !== 0) {
-                                let optgroupSelectedElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
+                                const optgroupSelectedElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
                                 if (!optgroupSelectedElement) {
                                     __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_triggerSearchContainerAnimationForWrongInput).call(self);
                                     console.error(`Can not create option with value '${keyValue}' because you need to select an optiongroup first...`);
@@ -1106,7 +1116,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                             }
                             option.setAttribute("selected", "selected");
                             if (!selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list button[data-id='${keyValue}']`)) {
-                                let newDeleteButton = __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(self, keyValue, keyValue, optgroup ? optgroup : undefined, false, selectField);
+                                const newDeleteButton = __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createDeleteButton).call(self, keyValue, keyValue, optgroup ? optgroup : undefined, false, selectField);
                                 if (optgroup) {
                                     let selectedHeader = selectField.nextElementSibling.querySelector(`.better-nice-select .delete-list h5[data-optgroup=${optgroup}]`);
                                     if (!selectedHeader) {
@@ -1135,7 +1145,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             }
             if ((event.key === "Tab" && !event.shiftKey) || event.key === "ArrowDown") {
                 event.preventDefault();
-                let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)");
+                const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)");
                 if (liElements.length > 0) {
                     liElements.forEach(element => element.tabIndex = -1);
                     liElements[0].tabIndex = 0;
@@ -1144,13 +1154,13 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                 }
             }
             if (event.key === "ArrowRight" && event.target.selectionStart === this.value.length) {
-                let inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint");
+                const inputHint = document.querySelector(".better-nice-select-overlay .search-container input.hint");
                 if (inputHint.value && inputHint.value !== "") {
                     event.preventDefault();
                     this.value = inputHint.value;
-                    let liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
+                    const liNodes = document.querySelector(".better-nice-select-overlay .search-container ul").getElementsByTagName("li");
                     for (let i = 0; i < liNodes.length; i++) {
-                        let txtValue = liNodes[i].firstChild.textContent;
+                        const txtValue = liNodes[i].firstChild.textContent;
                         if (txtValue.toLowerCase().indexOf(inputHint.value.toLowerCase()) > -1) {
                             liNodes[i].classList.remove("hidden");
                         }
@@ -1186,7 +1196,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                 }
             }
             if (event.key === 'Enter' && !enterAlreadyPressed && this.value && this.value !== "") {
-                let liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)");
+                const liElements = document.querySelectorAll(".better-nice-select-overlay .search-container ul li:not(.hidden)");
                 if (liElements && liElements.length !== 1 && self.animation) {
                     __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_triggerSearchContainerAnimationForWrongInput).call(self);
                     console.error("To many possible <option> groups.... Please restrict further by tipping more in search input...");
@@ -1200,17 +1210,17 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             }
         });
     };
-    let self = this;
-    let overlayElement = document.createElement("div");
+    const self = this;
+    const overlayElement = document.createElement("div");
     overlayElement.classList.add(...constants.CLASSES.overlayContainer);
-    let divWrapper = document.createElement("div");
+    const divWrapper = document.createElement("div");
     divWrapper.classList.add(...constants.CLASSES.overlayContainerWrapper);
     divWrapper.addEventListener("click", hideOverlayOnClick);
-    let search = document.createElement("div");
+    const search = document.createElement("div");
     search.classList.add(...constants.CLASSES.searchContainer);
-    let searchInputWrapper = document.createElement("div");
+    const searchInputWrapper = document.createElement("div");
     searchInputWrapper.classList.add(...constants.CLASSES.searchInputWrapper);
-    let searchIcon = document.createElement("span");
+    const searchIcon = document.createElement("span");
     searchIcon.classList.add(...constants.CLASSES.searchIcon);
     if (typeof self.icons.search === 'string') {
         searchIcon.insertAdjacentHTML("beforeend", self.icons.search);
@@ -1218,15 +1228,15 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
     else {
         searchIcon.insertAdjacentElement("beforeend", self.icons.search);
     }
-    let searchInput = document.createElement("input");
+    const searchInput = document.createElement("input");
     searchInput.setAttribute("placeholder", LOCALISATION[self.locale].formatSearch());
     searchInputWrapper.appendChild(searchIcon);
     searchInputWrapper.appendChild(searchInput);
-    let searchHintInput = document.createElement("input");
+    const searchHintInput = document.createElement("input");
     searchHintInput.classList.add(...constants.CLASSES.searchHintInput);
     searchInputWrapper.appendChild(searchHintInput);
     if (self.tags) {
-        let tagIcon = document.createElement("span");
+        const tagIcon = document.createElement("span");
         tagIcon.classList.add(...constants.CLASSES.tagIcon);
         if (typeof self.icons.tag === 'string') {
             tagIcon.insertAdjacentHTML("beforeend", self.icons.tag);
@@ -1234,11 +1244,11 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
         else {
             tagIcon.insertAdjacentElement("beforeend", self.icons.tag);
         }
-        let tooltip = document.createElement("span");
+        const tooltip = document.createElement("span");
         tooltip.classList.add("tooltip-own");
         tagIcon.appendChild(tooltip);
-        let index = self.tokenSeparators.indexOf(" ");
-        let copySeparators = self.tokenSeparators.slice();
+        const index = self.tokenSeparators.indexOf(" ");
+        const copySeparators = self.tokenSeparators.slice();
         if (index > -1) {
             copySeparators.splice(index, 1);
             copySeparators.push("Spacebar");
@@ -1250,20 +1260,20 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
         searchInputWrapper.appendChild(__classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_createSearchOptGroupHint).call(self));
     }
     search.appendChild(searchInputWrapper);
-    let focusHr = document.createElement("span");
+    const focusHr = document.createElement("span");
     focusHr.classList.add(...constants.CLASSES.searchHrFocus);
     search.appendChild(focusHr);
-    let hr = document.createElement("span");
+    const hr = document.createElement("span");
     hr.classList.add(...constants.CLASSES.searchHr);
     search.appendChild(hr);
-    let searchList = document.createElement("ul");
+    const searchList = document.createElement("ul");
     searchList.classList.add(...constants.CLASSES.searchList);
     search.appendChild(searchList);
-    let loadingAnimationWrapper = document.createElement("div");
+    const loadingAnimationWrapper = document.createElement("div");
     loadingAnimationWrapper.classList.add("loading-wrapper");
-    let loadingAnimation = document.createElement("div");
+    const loadingAnimation = document.createElement("div");
     loadingAnimation.classList.add("loading");
-    let loadingText = document.createElement("span");
+    const loadingText = document.createElement("span");
     loadingText.innerText = LOCALISATION[self.locale].formatLoadingMessage();
     loadingAnimationWrapper.appendChild(loadingText);
     loadingAnimationWrapper.appendChild(loadingAnimation);

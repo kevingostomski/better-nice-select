@@ -23,7 +23,7 @@ export default {
     },
 
     findElement(key: string, instance: object): HTMLElement {
-        for (let instanceMap of elementMap) {
+        for (const instanceMap of elementMap) {
             if (instanceMap[1].has(key) && instanceMap[1].get(key) === instance) {
                 return instanceMap[0];
             }

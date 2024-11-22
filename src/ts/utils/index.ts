@@ -1,3 +1,4 @@
+/* eslint-disable */
 export default {
     /**
      * Create HTML single Element from string input
@@ -5,7 +6,7 @@ export default {
      * @return {Element}
      */
     htmlToElement(html: string) {
-        var template = document.createElement('template');
+        let template = document.createElement('template');
         html = html.trim();
         template.innerHTML = html;
         return template.content.firstChild;
@@ -16,7 +17,7 @@ export default {
      * @return {NodeList} 
      */
     htmlToElements(html: string) {
-        var template = document.createElement('template');
+        let template = document.createElement('template');
         html = html.trim();
         template.innerHTML = html;
         return template.content.childNodes;

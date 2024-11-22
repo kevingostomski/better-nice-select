@@ -4,6 +4,7 @@
   "description": "This plugin let's you create a modern looking select field for form submits with typeahead and autocomplete function. No jQuery or other stuff needed!",
   "main": "dist/js/better-nice-select.js",
   "scripts": {
+    "test": "eslint ./src/ts",
     "build": "rimraf ./dist && webpack --config webpack.minified.config.js && webpack --config webpack.unminified.config.js",
     "prepublishOnly": "rimraf ./dist && webpack --config webpack.minified.config.js && webpack --config webpack.unminified.config.js",
     "dev": "rimraf ./dist && webpack --devtool 'source-map' --config webpack.unminified.config.js"
@@ -39,6 +40,9 @@
     "typescript": "5.6.3",
     "webpack": "5.95.0",
     "webpack-cli": "5.1.4",
-    "rimraf": "6.0.1"
+    "rimraf": "6.0.1",
+    "eslint": "9.15.0",
+    "@eslint/js": "9.15.0",
+    "typescript-eslint": "8.15.0"
   }
 }
