@@ -48,7 +48,7 @@ export class BetterNiceSelect implements DefaultType {
         })
     }
 
-    async #filterRemoteSearchData(filter: string, optgroup: string, selectField: HTMLSelectElement) {
+    async #filterRemoteSearchData(filter: string, optgroup: string) {
         let remoteData = this['customSearch'] instanceof Function || typeof this['customSearch'] === 'function' ? this['customSearch'](filter, optgroup) : Utils.executeFunctionByName(this['customSearch'], window, filter, optgroup);
         await Promise.resolve(remoteData).then(data => {
             this.#searchData.items = data;
@@ -154,6 +154,9 @@ export class BetterNiceSelect implements DefaultType {
                 }
                 if (event.key === "Enter") {
                     this.click();
+                }
+                if (event.key === "Escape") {
+                    self.#closeOverlay();
                 }
             });
             li.addEventListener("focusin", function () {
@@ -317,7 +320,7 @@ export class BetterNiceSelect implements DefaultType {
             let selectedOptgroupElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
             let founded: SearchItem;
             if (self.customSearch !== undefined) {
-                await self.#filterRemoteSearchData(filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null, selectField);
+                await self.#filterRemoteSearchData(filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null);
                 // it could be that search was already emptied again because getting data takes to long so we can early return
                 if (searchInput.value.length === 0) {
                     return;
@@ -492,6 +495,9 @@ export class BetterNiceSelect implements DefaultType {
                 if (liElements && liElements.length === 1) {
                     liElements[0].click();
                 }
+            }
+            if (event.key === "Escape") {
+                self.#closeOverlay();
             }
         }
 
@@ -889,7 +895,7 @@ export class BetterNiceSelect implements DefaultType {
             return;
         }
         if (this.customSearch) {
-            args.length > 0 ? await this.#filterRemoteSearchData(args[0], args[1] ? args[1] : "", selectField) : await this.#filterRemoteSearchData("", "", selectField);
+            args.length > 0 ? await this.#filterRemoteSearchData(args[0], args[1] ? args[1] : "") : await this.#filterRemoteSearchData("", "");
         }
         for (let searchoption of this.#searchData.items) {
             const afterAdd = new CustomEvent("inserted.better-nice-select", {

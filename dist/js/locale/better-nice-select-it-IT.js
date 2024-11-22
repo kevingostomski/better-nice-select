@@ -597,7 +597,7 @@ class BetterNiceSelect {
                 return;
             }
             if (this.customSearch) {
-                args.length > 0 ? yield __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(this, args[0], args[1] ? args[1] : "", selectField) : yield __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(this, "", "", selectField);
+                args.length > 0 ? yield __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(this, args[0], args[1] ? args[1] : "") : yield __classPrivateFieldGet(this, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(this, "", "");
             }
             for (let searchoption of __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").items) {
                 const afterAdd = new CustomEvent("inserted.better-nice-select", {
@@ -754,7 +754,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             __classPrivateFieldGet(this, _BetterNiceSelect_searchData, "f").possibleOptGroupLabels = data;
         });
     });
-}, _BetterNiceSelect_filterRemoteSearchData = function _BetterNiceSelect_filterRemoteSearchData(filter, optgroup, selectField) {
+}, _BetterNiceSelect_filterRemoteSearchData = function _BetterNiceSelect_filterRemoteSearchData(filter, optgroup) {
     return __awaiter(this, void 0, void 0, function* () {
         let remoteData = this['customSearch'] instanceof Function || typeof this['customSearch'] === 'function' ? this['customSearch'](filter, optgroup) : utils.executeFunctionByName(this['customSearch'], window, filter, optgroup);
         yield Promise.resolve(remoteData).then(data => {
@@ -864,6 +864,9 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             }
             if (event.key === "Enter") {
                 this.click();
+            }
+            if (event.key === "Escape") {
+                __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_closeOverlay).call(self);
             }
         });
         li.addEventListener("focusin", function () {
@@ -1010,7 +1013,7 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
             let selectedOptgroupElement = document.querySelector(".better-nice-select-overlay .search-container .search-optgroup-selected");
             let founded;
             if (self.customSearch !== undefined) {
-                yield __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(self, filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null, selectField);
+                yield __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_filterRemoteSearchData).call(self, filter, selectedOptgroupElement ? selectedOptgroupElement.getAttribute("data-optgroup") : null);
                 // it could be that search was already emptied again because getting data takes to long so we can early return
                 if (searchInput.value.length === 0) {
                     return;
@@ -1191,6 +1194,9 @@ _BetterNiceSelect_currentLi = new WeakMap(), _BetterNiceSelect_currentOptGroup =
                 if (liElements && liElements.length === 1) {
                     liElements[0].click();
                 }
+            }
+            if (event.key === "Escape") {
+                __classPrivateFieldGet(self, _BetterNiceSelect_instances, "m", _BetterNiceSelect_closeOverlay).call(self);
             }
         });
     };
