@@ -1,4 +1,11 @@
+# NPM specific
 node_modules
+
+# Playwright
+playwright/reports
+playwright/results
+playwright/serve/css/*
+playwright/serve/js/*
 
 # General
 .DS_Store

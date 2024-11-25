@@ -1,9 +1,8 @@
-name: Build and Deploy to Github Pages
-
+name: Publish New Version
 on:
   push:
-    branches:
-      - main
+    tags:
+      - '*'
 
 jobs:
   build_and_deploy:

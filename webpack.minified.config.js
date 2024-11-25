@@ -20,17 +20,56 @@ fileNames.splice(fileNames.indexOf("README.md"), 1);
 ######### MINIFIED #########
 ############################
 */
-
-const minifiedLocales = [];
-fileNames.forEach(function (filename) {
-    minifiedLocales.push({
-        mode: 'production',
-        optimization: {
-            minimize: true,
-            minimizer: [new TerserPlugin({
-                extractComments: false
-            }), new CssMinimizerPlugin()]
+const commonConfig = {
+    mode: 'production',
+    optimization: {
+        splitChunks: {
+            chunks: 'all'
         },
+        minimize: true,
+        minimizer: [
+            new TerserPlugin({ extractComments: false }),
+            new CssMinimizerPlugin()
+        ]
+    },
+    plugins: [
+        new MiniCssExtractPlugin({ filename: "css/better-nice-select.min.css" }),
+        new webpack.BannerPlugin({ banner: bannerText })
+    ],
+    module: {
+        rules: [
+            {
+                test: /\.tsx?$/,
+                use: [
+                    {
+                        loader: 'ts-loader',
+                        options: {
+                            transpileOnly: true
+                        },
+                    },
+                ],
+                exclude: /node_modules/,
+            },
+            {
+                test: /\.scss$/,
+                use: [
+                    MiniCssExtractPlugin.loader,
+                    "css-loader",
+                    {
+                        loader: 'sass-loader',
+                        options: { sassOptions: { outputStyle: "compressed" } }
+                    }
+                ]
+            }
+        ]
+    },
+    resolve: { extensions: ['.ts', '.js', '.scss'] }
+};
+
+const minifiedLocales = fileNames
+    .filter(filename => filename !== "README.md")
+    .map(filename => ({
+        ...commonConfig,
         entry: `./src/ts/locale/${filename}`,
         output: {
             path: path.resolve(__dirname, 'dist'),
@@ -38,53 +77,12 @@ fileNames.forEach(function (filename) {
             clean: false,
             globalObject: 'this',
             umdNamedDefine: true,
-            library: {
-                name: 'betterNiceSelect',
-                type: 'umd'
-            }
-        },
-        plugins: [new MiniCssExtractPlugin({
-            filename: "css/better-nice-select.min.css"
-        }),
-        new webpack.BannerPlugin({
-            banner: bannerText
-        })
-        ],
-        module: {
-            rules: [
-                {
-                    test: /\.scss$/,
-                    use: [MiniCssExtractPlugin.loader, "css-loader",
-                    {
-                        loader: 'sass-loader',
-                        options: {
-                            sassOptions: {
-                                outputStyle: "compressed"
-                            }
-                        }
-                    }]
-                },
-                {
-                    test: /\.tsx?$/,
-                    use: 'ts-loader',
-                    exclude: /node_modules/,
-                }
-            ]
-        },
-        resolve: {
-            extensions: ['.tsx', '.ts', '.js', '.scss'],
+            library: { name: 'betterNiceSelect', type: 'umd' }
         }
-    });
-});
+    }));
 
 const minifiedMain = {
-    mode: 'production',
-    optimization: {
-        minimize: true,
-        minimizer: [new TerserPlugin({
-            extractComments: false
-        }), new CssMinimizerPlugin()]
-    },
+    ...commonConfig,
     entry: './src/ts/better-nice-select.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -92,52 +90,12 @@ const minifiedMain = {
         clean: false,
         globalObject: 'this',
         umdNamedDefine: true,
-        library: {
-            name: 'betterNiceSelect',
-            type: 'umd'
-        }
+        library: { name: 'betterNiceSelect', type: 'umd' }
     },
-    plugins: [new MiniCssExtractPlugin({
-        filename: "css/better-nice-select.min.css"
-    }),
-    new webpack.BannerPlugin({
-        banner: bannerText
-    })
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.scss$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader",
-                {
-                    loader: 'sass-loader',
-                    options: {
-                        sassOptions: {
-                            outputStyle: "compressed"
-                        }
-                    }
-                }]
-            },
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            }
-        ]
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
-    }
 };
 
 const minifiedAllLocales = {
-    mode: 'production',
-    optimization: {
-        minimize: true,
-        minimizer: [new TerserPlugin({
-            extractComments: false
-        }), new CssMinimizerPlugin()]
-    },
+    ...commonConfig,
     entry: './src/ts/better-nice-select-locale-all.ts',
     output: {
         path: path.resolve(__dirname, 'dist'),
@@ -145,41 +103,7 @@ const minifiedAllLocales = {
         clean: false,
         globalObject: 'this',
         umdNamedDefine: true,
-        library: {
-            name: 'betterNiceSelect',
-            type: 'umd'
-        }
-    },
-    plugins: [new MiniCssExtractPlugin({
-        filename: "css/better-nice-select.min.css"
-    }),
-    new webpack.BannerPlugin({
-        banner: bannerText
-    })
-    ],
-    module: {
-        rules: [
-            {
-                test: /\.scss$/,
-                use: [MiniCssExtractPlugin.loader, "css-loader",
-                {
-                    loader: 'sass-loader',
-                    options: {
-                        sassOptions: {
-                            outputStyle: "compressed"
-                        }
-                    }
-                }]
-            },
-            {
-                test: /\.tsx?$/,
-                use: 'ts-loader',
-                exclude: /node_modules/,
-            }
-        ]
-    },
-    resolve: {
-        extensions: ['.tsx', '.ts', '.js', '.scss'],
+        library: { name: 'betterNiceSelect', type: 'umd' }
     }
 };
 
@@ -189,11 +113,4 @@ const minifiedAllLocales = {
 ############################
 */
 
-let minified = minifiedLocales.slice(0);
-minified.push(minifiedMain, minifiedAllLocales);
-
-module.exports = () => {
-    return minified;
-};
-
-module.exports.parallelism = 1;
+module.exports = () => [...minifiedLocales, minifiedMain, minifiedAllLocales];

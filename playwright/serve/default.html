@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Better Nice Select Examples Testing</title>
+    <link rel="stylesheet" href="css/better-nice-select.css" />
+    <style>
+        :root {
+            --font-family-sans-serif: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Liberation Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+            --font-family-monospace: SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+        }
+
+        html {
+            font-family: sans-serif;
+            line-height: 1.15;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 500;
+            line-height: 1.2;
+            margin: 1.5rem 0;
+            text-align: center;
+        }
+
+        h5 {
+            font-size: 1.25rem;
+            margin-bottom: .5rem;
+            font-weight: 500;
+            line-height: 1.2;
+        }
+
+        select {
+            width: 300px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Examples - Better Nice Select</h1>
+    <h2>Single Select</h2>
+    <select id="single-select">
+        <option value="Banana">Banana</option>
+        <option value="Apple">Apple</option>
+        <option value="Orange">Orange</option>
+        <option value="Lemon" selected="selected">Lemon</option>
+        <option value="Pepper">Pepper</option>
+        <option value="Mushrooms">Mushrooms</option>
+        <option value="Cabbages">Cabbages</option>
+        <option value="Celery">Celery</option>
+        <option value="Garlic">Garlic</option>
+        <option value="Brocoli">Brocoli</option>
+    </select>
+    <h2>Multiple Select</h2>>
+    <select multiple="multiple" id="multiple-select">
+        <optgroup label="Fruit">
+            <option value="Banana">Banana</option>
+            <option value="Apple">Apple</option>
+            <option value="Orange">Orange</option>
+            <option value="Lemon">Lemon</option>
+        </optgroup>
+        <optgroup label="Vegetable">
+            <option value="Pepper">Pepper</option>
+            <option value="Mushrooms">Mushrooms</option>
+            <option value="Cabbages" selected="selected">Cabbages</option>
+            <option value="Celery">Celery</option>
+            <option value="Garlic">Garlic</option>
+            <option value="Brocoli">Brocoli</option>
+        </optgroup>
+    </select>
+    <h2>Multiple Select with Tagging</h2>>
+    <select multiple="multiple" id="multiple-select-tagging">
+        <optgroup label="Fruit">
+            <option value="Banana">Banana</option>
+            <option value="Apple">Apple</option>
+            <option value="Orange">Orange</option>
+            <option value="Lemon">Lemon</option>
+        </optgroup>
+        <optgroup label="Vegetable">
+            <option value="Pepper">Pepper</option>
+            <option value="Mushrooms">Mushrooms</option>
+            <option value="Cabbages" selected="selected">Cabbages</option>
+            <option value="Celery">Celery</option>
+            <option value="Garlic">Garlic</option>
+            <option value="Brocoli">Brocoli</option>
+        </optgroup>
+    </select>
+    <h2>Multiple Select with Tagging</h2>>
+    <select multiple="multiple" id="multiple-select-tagging">
+        <optgroup label="Fruit">
+            <option value="Banana">Banana</option>
+            <option value="Apple">Apple</option>
+            <option value="Orange">Orange</option>
+            <option value="Lemon">Lemon</option>
+        </optgroup>
+        <optgroup label="Vegetable">
+            <option value="Pepper">Pepper</option>
+            <option value="Mushrooms">Mushrooms</option>
+            <option value="Cabbages" selected="selected">Cabbages</option>
+            <option value="Celery">Celery</option>
+            <option value="Garlic">Garlic</option>
+            <option value="Brocoli">Brocoli</option>
+        </optgroup>
+    </select>
+    <h2>Multiple Select with Remote Data</h2>
+    <select multiple="multiple" id="multiple-select-remote-data">
+        <optgroup label="Fruit">
+        </optgroup>
+        <optgroup label="Vegetable">
+        </optgroup>
+    </select>
+    <script src="js/better-nice-select.js"></script>
+    <script>
+        let remoteSearchData = {
+            items: [
+                {
+                    id: "Banana",
+                    text: "Banana",
+                    label: "Fruit"
+                },
+                {
+                    id: "Apple",
+                    text: "Apple",
+                    label: "Fruit"
+                },
+                {
+                    id: "Orange",
+                    text: "Orange",
+                    label: "Fruit"
+                },
+                {
+                    id: "Blackberry",
+                    text: "Blackberry",
+                    label: "Fruit"
+                },
+                {
+                    id: "Coconut",
+                    text: "Coconut",
+                    label: "Fruit"
+                },
+                {
+                    id: "Papaya",
+                    text: "Papaya",
+                    label: "Fruit"
+                },
+                {
+                    id: "Mango",
+                    text: "Mango",
+                    label: "Fruit"
+                },
+                {
+                    id: "Grapes",
+                    text: "Grapes",
+                    label: "Fruit"
+                },
+                {
+                    id: "Cherry",
+                    text: "Cherry",
+                    label: "Fruit"
+                }, {
+                    id: "Guava",
+                    text: "Guava",
+                    label: "Fruit"
+                },
+                {
+                    id: "Lime",
+                    text: "Lime",
+                    label: "Fruit"
+                },
+                {
+                    id: "Pepper",
+                    text: "Pepper",
+                    label: "Vegetable"
+                },
+                {
+                    id: "Garlic",
+                    text: "Garlic",
+                    label: "Vegetable"
+                },
+                {
+                    id: "Eggplant",
+                    text: "Eggplant",
+                    label: "Vegetable"
+                },
+                {
+                    id: "Fennel",
+                    text: "Fennel",
+                    label: "Vegetable"
+                },
+                {
+                    id: "Corn",
+                    text: "Corn",
+                    label: "Vegetable"
+                }, {
+                    id: "Cucumber",
+                    text: "Cucumber",
+                    label: "Vegetable"
+                },
+                {
+                    id: "Carrot",
+                    text: "Carrot",
+                    label: "Vegetable"
+                },
+                {
+                    id: "Chili",
+                    text: "Chili",
+                    label: "Vegetable"
+                }, {
+                    id: "Potato",
+                    text: "Potato",
+                    label: "Vegetable"
+                },
+                {
+                    id: "Squash",
+                    text: "Squash",
+                    label: "Vegetable"
+                },
+            ]
+        }
+
+        function callRemoteData(filter, selectedOptgroup) {
+            return new Promise(function (resolve, reject) {
+                console.log("Remote function got called for data (so you see the functionality of the `delayInput` option)");
+                let toRet = structuredClone(remoteSearchData);
+                let ret = toRet.items.filter(data => {
+                    if (selectedOptgroup) {
+                        return data.label === selectedOptgroup && data.text.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+                    } else {
+                        return data.text.toLowerCase().indexOf(filter.toLowerCase()) > -1;
+                    }
+                });
+                setTimeout(() => resolve(ret), 3000);
+                //resolve(ret);
+            });
+        }
+
+        function callRemoteOptionGroups() {
+            return new Promise(function (resolve, reject) {
+                console.log("Remote function got called for optiongroups (so you see the functionality of the `delayInput` option)");
+                let arr = [];
+                remoteSearchData.items.forEach(data => {
+                    if (!arr.includes(data.label)) {
+                        arr.push(data.label);
+                    }
+                });
+                setTimeout(() => resolve(arr), 6000);
+                //resolve(ret);
+            });
+        };
+
+        function checkTag(input) {
+            return new Promise(function (resolve, reject) {
+                console.log("Remote function for checkTag")
+                let ret = true;
+                if (input === "" || input.toLowerCase().includes("ä") || input.toLowerCase().includes("ö") || input.toLowerCase().includes("ü")) {
+                    ret = false;
+                }
+                setTimeout(() => resolve(ret), 5000);
+            });
+        }
+
+        betterNiceSelect.DEFAULTS.locale = "en";
+
+        let select1 = new betterNiceSelect.BetterNiceSelect("#exampleSelect1", { tags: true, animation: true });
+        let select2 = new betterNiceSelect.BetterNiceSelect("#exampleSelect2", { tags: true, customTagCheck: "checkTag" });
+        let select3 = new betterNiceSelect.BetterNiceSelect("#exampleSelect3", { customSearch: callRemoteData, tags: true, customTagCheck: "checkTag" });
+    </script>
+</body>
+
+</html>
